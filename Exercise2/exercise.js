@@ -1,17 +1,17 @@
 /*jslint browser: true, devel: true */
 function CheckChoice() {
   "use strict";
-  this.checkBox = document.getElementsByName("color");
-  this.selectAll = document.getElementById("checkall");
-  this.noneSelect = document.getElementById("checknone");
+  this.checkBox = document.getElementsByName("inputColor");
+  this.selectAll = document.getElementById("checkAll");
+  this.noneSelect = document.getElementById("checkNone");
+  this.events();
   this.check = function (choice) {
-    this.choice = choice;
-    this.i = this.checkBox.length - 1;
-    if (this.i > -1) {
+    var i = this.checkBox.length - 1;
+    if (i > -1) {
       do {
-        this.checkBox[this.i].checked = this.choice;
-        this.i = this.i - 1;
-      } while (this.i >= 0);
+        this.checkBox[i].checked = choice;
+        i = i - 1;
+      } while (i >= 0);
     }
   };
 }
@@ -28,4 +28,3 @@ CheckChoice.prototype.events = function () {
 };
 
 var checkBoxObject = new CheckChoice();
-checkBoxObject.events();
