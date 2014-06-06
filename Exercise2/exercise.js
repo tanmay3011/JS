@@ -21,7 +21,7 @@ function CheckChoice() {
     if (i > -1) {
       do {
         this.checkBoxes[i].checked = choice;
-        i = i - 1;
+        i -= 1;
       } while (i >= 0);
     }
   };
