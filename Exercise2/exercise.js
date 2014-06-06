@@ -8,13 +8,13 @@ function CheckChoice() {
     this.bind_events();
   };
 
-  this.check = function (clickChoice) {
-    var i = this.checkBoxes.length - 1;
-    if (i > -1) {
+  this.check_all = function (check) {
+    var checkCount = this.checkBoxes.length - 1;
+    if (checkCount > -1) {
       do {
-        this.checkBoxes[i].checked = clickChoice;
-        i -= 1;
-      } while (i >= 0);
+        this.checkBoxes[checkCount].checked = check;
+        checkCount -= 1;
+      } while (checkCount >= 0);
     }
   };
 }
@@ -23,10 +23,10 @@ CheckChoice.prototype.bind_events = function () {
   "use strict";
   var checkValue = this;
   this.selectAll.onclick = function () {
-    checkValue.check(true);
+    checkValue.check_all(true);
   };
   this.noneSelect.onclick = function () {
-    checkValue.check(false);
+    checkValue.check_all(false);
   };
 };
 
