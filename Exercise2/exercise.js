@@ -27,4 +27,4 @@ CheckChoice.prototype.events = function () {
   };
 };
 
-var checkBoxObject = new CheckChoice();
+var checkChoice = new CheckChoice();
