@@ -1,7 +1,6 @@
 /*jslint browser: true, devel: true */
 function CheckChoice() {
   "use strict";
-  this.checkBoxes = this.selectAll = this.noneSelect = [];
   this.init = function (checkBoxes, selectAll, noneSelect) {
     this.checkBoxes = checkBoxes;
     this.selectAll = selectAll;
@@ -9,11 +8,11 @@ function CheckChoice() {
     this.bind_events();
   };
 
-  this.check = function (bool) {
+  this.check = function (clickChoice) {
     var i = this.checkBoxes.length - 1;
     if (i > -1) {
       do {
-        this.checkBoxes[i].checked = bool;
+        this.checkBoxes[i].checked = clickChoice;
         i -= 1;
       } while (i >= 0);
     }
