@@ -10,8 +10,9 @@ RowEvents.prototype.saveEvent = function () {
   "use strict";
   var save = this.row.getElementsByTagName("button")[0];
   var that = this;
-  save.onclick = function () { that.validateValues();
-     };
+  save.onclick = function () { 
+    that.validateValues();
+  };
 };
 
 RowEvents.prototype.validateValues = function () {
