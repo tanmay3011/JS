@@ -1,7 +1,10 @@
 /*jslint browser: true, devel: true */
 function CheckEvent() {
   "use strict";
-  var checkedCount = 0, checkedList = [], minimumCheckLimit = 4, checkBoxesCounter = 0;
+  this.checkedCount = 0;
+  this.checkedList = [];
+  this.minimumCheckLimit = 4;
+  this.checkBoxesCounter = 0;
   //method for initiation
   this.init = function (tableIdRef, noneSelectRef, checkBoxesRef) {
     this.tableId = tableIdRef;
@@ -10,51 +13,51 @@ function CheckEvent() {
     this.totalNumberCheckBoxes = this.checkBoxes.length - 1;
     this.bindEvents();
   };
+};
 
-  //method to alert on 4th click
-  this.popAlert = function () {
-    checkedList.length = minimumCheckLimit - 1;
-    alert("Only 3 days can be selected. You have already selected " + checkedList.toString());
-    this.checkNone();
-  };
+CheckEvent.prototype.popAlert = function () {
+  this.checkedList.length =this.minimumCheckLimit - 1;
+  alert("Only 3 days can be selected. You have already selected " + this.checkedList.toString());
+  this.checkNone();
+};
 
-  //method when none is clicked
-  this.checkNone = function () {
-    for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
-        this.checkBoxes[checkBoxesCounter].checked = false;
+//method when none is clicked
+CheckEvent.prototype.checkNone = function () {
+  for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
+      this.checkBoxes[checkBoxesCounter].checked = false;
+  }  
+  this.checkedList.length = 0;
+  this.checkedCount = 0;
+};
+
+//method to check the main functionality of checking three days
+CheckEvent.prototype.increaseCount = function () {
+  var that = this;
+  this.checkedCount = 0;
+  this.noneSelect.checked = false;
+  for (var checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
+    if (this.checkBoxes[checkBoxesCounter].checked === true) {
+      this.checkedCount += 1;    
     }  
-    checkedList.length = 0;
-    checkedCount = 0;
-  };
+  }
+  if (this.checkedCount === this.minimumCheckLimit - 1) {
+    that.pushDays();
+  } else if (this.checkedCount < this.minimumCheckLimit - 1) {
+    that.checkedList.length = 0;
+  } else {
+    that.popAlert();
+  }
+};
 
-  //method to check the main functionality of checking three days
-  this.increaseCount = function () {
-    var that = this;
-    checkedCount = 0;
-    this.noneSelect.checked = false;
-    for (var checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
-      if (this.checkBoxes[checkBoxesCounter].checked === true) {
-        checkedCount += 1;    
-      }  
+//method for storing days
+CheckEvent.prototype.pushDays = function() {
+  var that = this;
+  for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
+    if (this.checkBoxes[checkBoxesCounter].checked === true) {
+       that.checkedList.push(this.checkBoxes[checkBoxesCounter].value);
     }
-    if (checkedCount === minimumCheckLimit - 1) {
-      that.pushDays();
-    } else if (checkedCount < minimumCheckLimit - 1) {
-      checkedList.length = 0;
-    } else {
-      that.popAlert();
-    }
-  };
-
-  //method for storing days
-  this.pushDays = function() {
-    for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
-      if (this.checkBoxes[checkBoxesCounter].checked === true) {
-         checkedList.push(this.checkBoxes[checkBoxesCounter].value);
-      }
-    }
-  };
-}
+  }
+};
 
 //method to bind event on click
 CheckEvent.prototype.bindEvents = function () {
