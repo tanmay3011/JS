@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- JS Exercise6 by. Tanmay Sinha(tanmay@vinsol.com) -->
+
+<html lang='en'>
+  <head>
+    <title>
+      JS Form Validation Exercise
+    </title>     
+  <script type="text/javascript" src="form_validation.js"></script>  
+  <link rel="stylesheet" type="text/css" href="form_validation.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>Registration Form</h1>
+      <form id="userRegistrationForm">
+        <table>
+          <tr>
+            <td>Login Id</td>
+            <td><input id="Login Id" name="textinput"></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><input id="Email" name="textinput"></td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td><input id="Name" name="textinput"></td>
+          </tr>
+          <tr>
+            <td>Timezone</td>
+            <td>
+              <select id="TimeZone" name="selectinput">
+                <option value="GMT">GMT</option>
+                <option value="GMT +5.5">GMT +5.50</option>
+                <option value="GMT +1">GMT +1</option>
+                <option value="GMT +4">GMT +4</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Home Page</td>
+            <td><input id="HomePage" name="textinput"></td>
+          </tr>
+        </table>
+
+        <p>About me<br/>
+        <textarea id="textbox" name="textbox" rows="10" cols="40"></textarea><br>
+        <input type="checkbox" id="checkbox" name="checkbox">
+        <label for="checkbox">Receive notification of comments</label> <br>
+
+        You will be sent an email when someone post comments to your blog or Album
+        Your password would be mailed to you</p>
+        <input type="submit" value="Go" id="submit" name="save" />
+      </form>
+    </div>  
+  </body>
+</html>
+

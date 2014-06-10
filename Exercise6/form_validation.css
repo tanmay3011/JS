@@ -1,0 +1,51 @@
+.*{
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  margin: 0px auto;
+  width: 400px;
+  background-color: #DFECE0;
+}
+
+h1 {
+  margin: 0px auto;
+  width: 400px;
+  background-color: #1AA874;
+  font: 16px Tahoma;
+  color:#ffffff;
+  text-align: center;
+}
+
+.input {  
+  width:200px;
+  border:solid 1px #9ACD44;
+  position:relative;
+}
+
+p
+{
+  margin-left: 10px
+}
+#selectbox {
+
+  width:100px;
+  border:solid 1px #9ACD44;
+}
+
+textarea{
+  resize:none;
+  height: 150px;
+  width: 350px;
+}
+
+input[type="submit"]
+{
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #536238;
+  color: white;
+  display: block;
+  margin: 0px auto;
+}
