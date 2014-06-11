@@ -1,15 +1,13 @@
 /*Parent-Child Checkbox*/
 /*jslint browser: true, devel: true */
-var CheckEvent = function () {
+var CheckEvent = function (mainBlockElement,parentCheckBoxElement,subBlockElement) {
   "use strict";
-  this.init = function (mainBlockElement,parentCheckBoxElement,subBlockElement) {
-    this.parentCheckBoxElement = parentCheckBoxElement;
-    this.subBlockElement = subBlockElement;
-    this.mainBlock = mainBlockElement;
-    this.mainBlock.style.height = "100px";
-    this.mainBlock.style.width = "350px";
-    this.mainBlock.style.overflow = "scroll"; 
-  }
+  this.parentCheckBoxElement = parentCheckBoxElement;
+  this.subBlockElement = subBlockElement;
+  this.mainBlock = mainBlockElement;
+  this.mainBlock.style.height = "100px";
+  this.mainBlock.style.width = "350px";
+  this.mainBlock.style.overflow = "scroll"; 
 };
 
 //method to display no subblock at the starting
@@ -55,9 +53,7 @@ window.onload = function () {
   var mainBlockElement = document.getElementById("main");
   var parentCheckBoxElement = document.getElementsByName("parent");
   var subBlockElement = document.getElementsByName("child");
-  var checkEvent = new CheckEvent();
-  checkEvent.init(mainBlockElement, parentCheckBoxElement, subBlockElement)
+  var checkEvent = new CheckEvent(mainBlockElement, parentCheckBoxElement, subBlockElement);
   checkEvent.displayNosubBlock();
   checkEvent.bindEvents();
-;
 };
