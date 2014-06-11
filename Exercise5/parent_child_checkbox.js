@@ -9,8 +9,6 @@ var CheckEvent = function () {
     this.mainBlock.style.height = "100px";
     this.mainBlock.style.width = "350px";
     this.mainBlock.style.overflow = "scroll"; 
-    this.displayNosubBlock();
-    this.bindEvents();
   }
 };
 
@@ -58,5 +56,8 @@ window.onload = function () {
   var parentCheckBoxElement = document.getElementsByName("parent");
   var subBlockElement = document.getElementsByName("child");
   var checkEvent = new CheckEvent();
-  checkEvent.init(mainBlockElement, parentCheckBoxElement, subBlockElement);
+  checkEvent.init(mainBlockElement, parentCheckBoxElement, subBlockElement)
+  checkEvent.displayNosubBlock();
+  checkEvent.bindEvents();
+;
 };
