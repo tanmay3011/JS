@@ -6,64 +6,41 @@
     <title>
       JS Exercise5
     </title>     
-    
-    <style type="text/css">
-      div {
-        overflow:auto;
-        height:100px;
-        width:300px;
-        overflow: scroll;
-      }
-      li
-      {
-        list-style-type:none;
-      }
-    </style>
   </head>
   <body>
-    <div>
-      <ul>
-        <li>
-          <input type="checkbox" id="color">
-          <label for="color">Colors</label>
-          <ul id="colorList">
-            <li><input id="red" type="checkbox" name="colorSub"> <label for="red">Red</label></li>
-            <li><input id="yellow" type="checkbox" name="colorSub"><label for="yellow">Yellow</label></li>            
-            <li><input id="green" type="checkbox" name="colorSub"><label for="green">Green</label></li>            
-            <li><input id="blue" type="checkbox" name="colorSub"><label for="blue">Blue</label></li>
-          </ul>
-        </li>
+    <div id='main'>
+      <dl>
+        <dt><input type="checkbox" id="color" name="parent"><label for="color">Colors</label></dt>
+        <dd id="colorList" name="child">
+          <input id="red" type="checkbox" name="colorSub"> <label for="red">Red</label><br>
+          <input id="yellow" type="checkbox" name="colorSub"><label for="yellow">Yellow</label><br> 
+          <input id="green" type="checkbox" name="colorSub"><label for="green">Green</label><br>            
+          <input id="blue" type="checkbox" name="colorSub"><label for="blue">Blue</label><br>
+        </dd>
 
-        <li>
-          <input type="checkbox" id="drink">
-          <label for="drink">Drinks</label>
-          <ul id="drinkList">
-            <li><input id="coke" type="checkbox" name="drinkSub"><label for="coke">Coke</label></li>
-            <li><input id="pepsi" type="checkbox" name="drinkSub"><label for="pepsi">Pepsi</label></li>
-            <li><input id="dew" type="checkbox" name="drinkSub"><label for="dew">Dew</label></li>
-          </ul>
-        </li>
+        <dt><input type="checkbox" id="drink" name="parent"><label for="drink">Drinks</label></dt>
+        <dd id="drinkList" name="child">
+          <input id="coke" type="checkbox" name="drinkSub"><label for="coke">Coke</label><br>
+          <input id="pepsi" type="checkbox" name="drinkSub"><label for="pepsi">Pepsi</label><br>
+          <input id="dew" type="checkbox" name="drinkSub"><label for="dew">Dew</label><br>
+        </dd>
         
-        <li>
-          <input type="checkbox" id="movie">
-          <label for="movie">Movies</label>
-          <ul id="movieList">
-            <li><input id="dar" type="checkbox" name="movieSub"><label for="dar">Dar</label></li>
-            <li><input id="sir" type="checkbox" name="movieSub"><label for="sir">Sir</label></li>
-          </ul>
-        </li>
+        
+        <dt><input type="checkbox" id="movie" name="parent"><label for="movie">Movies</label></dt>
+        <dd id="movieList" name="child">
+          <input id="dar" type="checkbox" name="movieSub"><label for="dar">Dar</label><br>
+          <input id="sir" type="checkbox" name="movieSub"><label for="sir">Sir</label><br>
+        </dd>      
 
-        <li>
-          <input type="checkbox" id="bike">
-          <label for="bike">Bikes</label>
-          <ul id="bikeList">
-            <li><input id="v-rod" type="checkbox" name="bikeSub"><label for="v-rod">V-rod</label></li>
-            <li><input id="pulsar" type="checkbox" name="bikeSub"><label for="pulsar">Pulsar</label></li>
-            <li><input id="cbz" type="checkbox" name="bikeSub"> <label for="cbz">Cbz</label></li>
-          </ul>
-        </li>
-      </ul>
+        <dt><input type="checkbox" id="bike" name="parent"><label for="bike">Bikes</label></dt>
+        <dd id="bikeList" name="child">
+          <input id="v-rod" type="checkbox" name="bikeSub"><label for="v-rod">V-rod</label><br>
+          <input id="pulsar" type="checkbox" name="bikeSub"><label for="pulsar">Pulsar</label><br>
+          <input id="cbz" type="checkbox" name="bikeSub"> <label for="cbz">Cbz</label><br>
+        </dd>
+        
+      </dl>
     </div>
-    <script type="text/javascript" src="parent_child_checkbox1.js"></script>     
+    <script type="text/javascript" src="parent_child_checkbox.js"></script>     
   </body>
 </html>
