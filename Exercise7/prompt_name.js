@@ -5,12 +5,11 @@ var PromptName = function (displayElement) {
   this.displayElement = displayElement;
   this.firstName = "";
   this.secondName = "";
-  this.valid = true;
   this.regexName = /^[a-z ,.'-]+$/i;
 };
 
 //main method to call both input from user
-PromptName.prototype.Name = function () {
+PromptName.prototype.getFullName = function () {
   "use strict";
   this.firstName = this.getName('First Name');
   this.secondName = this.getName('Second Name');
@@ -20,12 +19,12 @@ PromptName.prototype.Name = function () {
 //method to receive name from user
 PromptName.prototype.getName = function (nameType) {
   "use strict"; 
-  var name,check; 
+  var name, check; 
   do{
     name = prompt("Please enter your " + nameType);
     check = this.validateName(name, nameType);
   } while(check);
-  return name
+  return name;
 };
 
 //method to print name on HTML page
@@ -50,6 +49,6 @@ window.onload = function () {
   "use strict";
   var displayElement = document.getElementById("box");
   var promptName = new PromptName(displayElement);
-  promptName.Name();
+  promptName.getFullName();
 }
  
