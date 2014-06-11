@@ -47,6 +47,7 @@ PromptName.prototype.validateName = function(name, nameType) {
 };
 
 window.onload = function () {
+  "use strict";
   var displayElement = document.getElementById("box");
   var promptName = new PromptName(displayElement);
   promptName.Name();
