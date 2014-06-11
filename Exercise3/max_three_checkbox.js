@@ -1,9 +1,11 @@
 /*jslint browser: true, devel: true */
-function CheckEvent() {
+function Days() {
   "use strict";
   this.checkedCount = 0;
   this.checkedList = [];
-  this.minimumCheckLimit = 4;
+  this.checkedIndexList = [];
+  this.checkedIndexList2 = [];
+  this.minimumCheckLimit = 3;
   this.checkBoxesCounter = 0;
   //method for initiation
   this.init = function (tableIdRef, noneSelectRef, checkBoxesRef) {
@@ -15,14 +17,13 @@ function CheckEvent() {
   };
 };
 
-CheckEvent.prototype.popAlert = function () {
-  this.checkedList.length =this.minimumCheckLimit - 1;
+Days.prototype.popAlert = function () {
+  console.log(this.checkedList);
   alert("Only 3 days can be selected. You have already selected " + this.checkedList.toString());
-  this.checkNone();
 };
 
 //method when none is clicked
-CheckEvent.prototype.checkNone = function () {
+Days.prototype.checkNone = function () {
   for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
       this.checkBoxes[checkBoxesCounter].checked = false;
   }  
@@ -31,40 +32,64 @@ CheckEvent.prototype.checkNone = function () {
 };
 
 //method to check the main functionality of checking three days
-CheckEvent.prototype.increaseCount = function () {
+Days.prototype.checkCount = function () {
   var that = this;
   this.checkedCount = 0;
+  this.checkedIndexList.length = 0;
   this.noneSelect.checked = false;
   for (var checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
     if (this.checkBoxes[checkBoxesCounter].checked === true) {
-      this.checkedCount += 1;    
-    }  
+      this.checkedCount += 1;
+      this.checkedIndexList.push(checkBoxesCounter);
+    }
   }
-  if (this.checkedCount === this.minimumCheckLimit - 1) {
+  if (this.checkedCount === this.minimumCheckLimit) {
     that.pushDays();
-  } else if (this.checkedCount < this.minimumCheckLimit - 1) {
+  } else if (this.checkedCount < this.minimumCheckLimit) {
     that.checkedList.length = 0;
   } else {
+    this.checkedCount -= 1;
+    this.uncheckFourthClickDifference();
     that.popAlert();
   }
 };
 
-//method for storing days
-CheckEvent.prototype.pushDays = function() {
-  var that = this;
-  for (checkBoxesCounter = 0 ; checkBoxesCounter <= this.totalNumberCheckBoxes ; checkBoxesCounter++) {
-    if (this.checkBoxes[checkBoxesCounter].checked === true) {
-       that.checkedList.push(this.checkBoxes[checkBoxesCounter].value);
+//method to uncheck the fourth click
+Days.prototype.uncheckFourthClickDifference = function() {
+  var differenceArray=[],diff=[];
+  for(var i=0;i<this.checkedIndexList2.length;i++) {
+    differenceArray[this.checkedIndexList2[i]]=true;
+  }
+  for(var i=0;i<this.checkedIndexList.length;i++) {
+     if(differenceArray[this.checkedIndexList[i]]) {
+      delete differenceArray[this.checkedIndexList[i]];
+    } else {
+      differenceArray[this.checkedIndexList[i]]=true;
+      diff=this.checkedIndexList[i];
     }
+  }
+  this.checkBoxes[diff].checked = false;
+};
+
+//method to push days in array(optimized by only checking the checked item stoed in the checkedIndexList array)
+Days.prototype.pushDays = function(choice) {
+  var that = this, length = this.checkedIndexList.length;
+  this.checkedCount = 0;
+  this.checkedList.length = 0;
+  this.checkedIndexList2.length = 0;
+  for (var checkBoxesCounter = 0 ; checkBoxesCounter < length; checkBoxesCounter++) {
+     this.checkBoxes[this.checkedIndexList[checkBoxesCounter]].checked = true;
+     this.checkedIndexList2.push(this.checkedIndexList[checkBoxesCounter]) ;
+     this.checkedList.push(this.checkBoxes[this.checkedIndexList[checkBoxesCounter]].value); 
   }
 };
 
 //method to bind event on click
-CheckEvent.prototype.bindEvents = function () {
+Days.prototype.bindEvents = function () {
   "use strict";
   var checkChoice = this;
   this.tableId.onclick = function () {
-    checkChoice.increaseCount();
+    checkChoice.checkCount();
   };
   this.noneSelect.onclick = function () {
     checkChoice.checkNone();
@@ -77,6 +102,6 @@ window.onload = function () {
   var tableIdRef = document.getElementById("checkBoxTable");
   var noneSelectRef = document.getElementById("checkNone");
   var checkBoxesRef = document.getElementsByName("dayCheckBox");
-  var checkEvent = new CheckEvent();
-  checkEvent.init(tableIdRef, noneSelectRef, checkBoxesRef);
+  var days = new Days();
+  days.init(tableIdRef, noneSelectRef, checkBoxesRef);
 };
