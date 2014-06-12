@@ -12,6 +12,7 @@ Prompt.prototype.getUrlName = function () {
   var check;
   do {
     this.UrlName = prompt("Please Input the URL you want to open", "http://www.google.com");
+    this.UrlName = this.UrlName.trim();
     check = this.validateInputUrl();
   } while (check);
   this.openNewWindow();
@@ -20,21 +21,24 @@ Prompt.prototype.getUrlName = function () {
 //method to open a New window
 Prompt.prototype.openNewWindow = function () {
   "use strict";
-  window.open(this.UrlName,"", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
+  window.open(this.UrlName, "" , "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
 
 //method to validate input
 Prompt.prototype.validateInputUrl = function () {
   "use strict";
-  if (!/^https?:\/\//i.test(this.UrlName)) {
+  if (!this.UrlName) {
+  	alert("Please enter a new Url. Blank Field will not be accepted");
+  	return true;
+  }
+  if (!/^https?:\/\//i.test(this.UrlName) && !!this.UrlName) {
     this.UrlName = 'http://' + this.UrlName;
-	}
-  if (!this.regexUrl.test(this.UrlName) || !this.UrlName) {
+  }
+  if (!this.regexUrl.test(this.UrlName)) {
     alert("This Url: " + this.UrlName + " is invalid. Please enter a new Url");
     return true;
-  } else {
-    return false;
-  }
+  } 
+  return false;
 };
 
 window.onload = function () {
