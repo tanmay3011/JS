@@ -21,7 +21,7 @@ Prompt.prototype.getUrlName = function () {
 //method to open a New window
 Prompt.prototype.openNewWindow = function () {
   "use strict";
-  window.open(this.UrlName, "" , "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
+  window.open(this.UrlName, "", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
 
 //method to validate input
