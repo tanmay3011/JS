@@ -1,13 +1,13 @@
 /*Input Url Name and open it in a new window*/
 /*jslint browser: true, devel: true */
-var InputUrlName = function () {
+var Prompt = function () {
   "use strict";
   this.UrlName = "";
   this.regexUrl = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
 };
 
 //method to get URL from user
-InputUrlName.prototype.getUrlName = function () {
+Prompt.prototype.getUrlName = function () {
   "use strict";
   var check;
   do {
@@ -18,14 +18,17 @@ InputUrlName.prototype.getUrlName = function () {
 };
 
 //method to open a New window
-InputUrlName.prototype.openNewWindow = function () {
+Prompt.prototype.openNewWindow = function () {
   "use strict";
-  window.open(this.UrlName, "_blank", "menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
+  window.open(this.UrlName,"", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
 
 //method to validate input
-InputUrlName.prototype.validateInputUrl = function () {
+Prompt.prototype.validateInputUrl = function () {
   "use strict";
+  if (!/^https?:\/\//i.test(this.UrlName)) {
+    this.UrlName = 'http://' + this.UrlName;
+	}
   if (!this.regexUrl.test(this.UrlName) || !this.UrlName) {
     alert("This Url: " + this.UrlName + " is invalid. Please enter a new Url");
     return true;
@@ -36,6 +39,6 @@ InputUrlName.prototype.validateInputUrl = function () {
 
 window.onload = function () {
   "use strict";
-  var inputUrlName = new InputUrlName();
-  inputUrlName.getUrlName();
+  var prompt = new Prompt();
+  prompt.getUrlName();
 };
