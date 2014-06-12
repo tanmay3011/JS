@@ -18,12 +18,12 @@ PromptName.prototype.getFullName = function () {
 
 //method to receive name from user
 PromptName.prototype.getName = function (nameType) {
-  "use strict"; 
-  var name, check; 
-  do{
+  "use strict";
+  var name, check;
+  do {
     name = prompt("Please enter your " + nameType);
     check = this.validateName(name, nameType);
-  } while(check);
+  } while (check);
   return name;
 };
 
@@ -35,10 +35,10 @@ PromptName.prototype.printNameInPage = function () {
 };
 
 //method to validate name i.e. to check wheter the input is null or not
-PromptName.prototype.validateName = function(name, nameType) {
+PromptName.prototype.validateName = function (name, nameType) {
   "use strict";
   if (!this.regexName.test(name) || !name) {
-    alert("Invalid " + nameType +" please enter again");
+    alert("Invalid " + nameType + " please enter again");
     return true;
   } else {
     return false;
@@ -50,5 +50,4 @@ window.onload = function () {
   var displayElement = document.getElementById("box");
   var promptName = new PromptName(displayElement);
   promptName.getFullName();
-}
- 
+};
