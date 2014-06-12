@@ -10,23 +10,24 @@ var InputUrlName = function () {
 InputUrlName.prototype.getUrlName = function () {
   "use strict";
   var check;
-  do{
-    this.UrlName = prompt("Please Input the URL you want to open");
+  do {
+    this.UrlName = prompt("Please Input the URL you want to open", "http://www.google.com");
     check = this.validateInputUrl();
-  } while(check);
+  } while (check);
   this.openNewWindow();
 };
 
 //method to open a New window
 InputUrlName.prototype.openNewWindow = function () {
-  window.open (this.UrlName,"mywindow","menubar=0,resizable=1,scrollbars=0,status=0,titlebar=0,toolbar=0,width=400,height=450");
+  "use strict";
+  window.open(this.UrlName, "_blank", "menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
 
 //method to validate input
 InputUrlName.prototype.validateInputUrl = function () {
-	"use strict";
-	if (!this.regexUrl.test(this.UrlName) || !this.UrlName) {
-  	alert("This Url: " + this.UrlName +" is invalid. Please enter a new Url");
+  "use strict";
+  if (!this.regexUrl.test(this.UrlName) || !this.UrlName) {
+    alert("This Url: " + this.UrlName + " is invalid. Please enter a new Url");
     return true;
   } else {
     return false;
