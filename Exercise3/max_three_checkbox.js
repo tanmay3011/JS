@@ -3,8 +3,8 @@
 var Days = function () {
   "use strict";
   this.checkedList = [];
-  this.checkedListIndex = [];
   this.minimumCheckLimit = 3;
+  this.daysChecked = "";
   //method for initiation
   this.init = function (tableIdRef, noneSelectRef, checkBoxesRef) {
     this.tableId = tableIdRef;
@@ -16,54 +16,63 @@ var Days = function () {
 //method to pop alert on 4th click
 Days.prototype.popAlert = function () {
   "use strict";
-  alert("Only 3 days can be selected. You have already selected " + this.checkedList.toString());
+  this.extractCheckedList("extractString");
+  alert("Only " + this.minimumCheckLimit + "  days can be selected. You have already selected " + this.daysChecked);
 };
 
 //method when none is clicked
 Days.prototype.checkNone = function () {
   "use strict";
-  var checkBoxesCounter;
-  for (checkBoxesCounter = 0; checkBoxesCounter < this.checkedListIndex.length; checkBoxesCounter++) {
-    this.checkBoxes[this.checkedListIndex[checkBoxesCounter]].checked = false;
-  }
+  this.extractCheckedList("checkNone");
   this.checkedList.length = 0;
+};
+
+//method to extract check list
+Days.prototype.extractCheckedList = function (choice) {
+  "use strict"
+  var checkBoxesCounter;
+  this.daysChecked = "";
+  for (checkBoxesCounter = 0; checkBoxesCounter < this.checkedList.length; checkBoxesCounter++) {
+    if(choice === "checkNone") {
+      this.checkBoxes[this.checkedList[checkBoxesCounter].id].checked = false;
+    } else if (choice === "extractString") {
+      this.daysChecked = this.checkedList[checkBoxesCounter].value + "," + this.daysChecked;
+    } else {
+      if (this.checkedList[checkBoxesCounter].id === choice) {
+        return checkBoxesCounter;
+      }
+    }
+  }
 };
 
 //method to check the main functionality of checking three days
 Days.prototype.checkBoxEvent = function (event) {
-  "use strict";
+  "use strict"; 
   if (event.target.checked) {
-    if (event.target.value === "None") {
-      this.checkNone();
-    } else if (this.checkedList.length !== this.minimumCheckLimit) {
+    if (this.checkedList.length < this.minimumCheckLimit) {
       this.pushDays(event);
     } else {
       event.target.checked = false;
       this.popAlert();
     }
   } else {
-    if (event.target.value !== "None") {
-      this.popDays(event);
-    }
+    this.popDays(event);
   }
 };
 
 //method to push days into array when checked
 Days.prototype.pushDays = function (event) {
   "use strict";
-  this.noneSelect.checked = false;
-  this.checkedList.push(event.target.value);
-  this.checkedListIndex.push(event.target.id);
+  this.checkedList.push(event.target);
 };
 
 //method to pop days from array when unchecked
 Days.prototype.popDays = function (event) {
   "use strict";
   var popIndex;
-  popIndex = this.checkedList.indexOf(event.target.value);
+  popIndex = this.extractCheckedList(event.target.id);
   if (popIndex !== -1) {
     this.checkedList.splice(popIndex, 1);
-    this.checkedListIndex.splice(popIndex, 1);
   }
 };
 
@@ -71,9 +80,10 @@ Days.prototype.popDays = function (event) {
 window.onload = function () {
   "use strict";
   var gridElement = document.getElementById("grid");
-  var noneSelectElement = document.getElementById("7");
+  var noneSelectElement = document.getElementsByClassName("checkNone");
   var checkBoxesElement = document.getElementsByName("dayCheckBox");
   var days = new Days();
   days.init(gridElement, noneSelectElement, checkBoxesElement);
-  gridElement.addEventListener('click', function (event) { days.checkBoxEvent(event); }, false);
+  gridElement.addEventListener('click', function (event) { noneSelectElement[0].checked = false; days.checkBoxEvent(event); }, false);
+  noneSelectElement[0].addEventListener('click', function (event) { days.checkNone(); }, false);
 };
