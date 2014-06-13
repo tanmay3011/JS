@@ -7,7 +7,7 @@ var CountryList = function (containerElement, firstSelectListElement, secondSele
 
 //method for initiation
 CountryList.prototype.init = function () {
-  this.containerElement = document.getElementById("container");;
+  this.containerElement = document.getElementById("container");
   this.firstSelectListElement = document.getElementById("firstList");
   this.secondSelectListElement = document.getElementById("secondList");
   this.bindEvent();
@@ -26,7 +26,6 @@ CountryList.prototype.checkEventType = function (event) {
 //method to move countries from one list to another
 CountryList.prototype.moveCountries = function (list1, list2) {
   "use strict";
-  var selectedCountriesCounter;
   while (list1.selectedIndex !== -1) {
     list2.appendChild(list1.options[list1.selectedIndex]);
   }
