@@ -1,27 +1,19 @@
-span
-{
-  position:relative;
-  display:inline-block;
-  padding:10px;
-  float:left;
-}
-
 select
 {
-  width:200px;
+  width:300px;
 }
 
 input
 {
   vertical-align:top;
   display : block;
-  margin:12px 0px;
-  background: #FF6000;
-  border: 1px #FF6000;
-  border-radius: 10px;
-  padding:5px 10px;
+  margin:10px 0px;
   color:white;
-  font-size:10px;
+  background: #FF6789;
+  border: 1px #FF6789;
+  border-radius: 5px;
+  padding:5px 5px;
+  font-size:12px;
 }
 
 #container
