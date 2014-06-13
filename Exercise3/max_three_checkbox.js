@@ -27,7 +27,7 @@ Days.prototype.checkNone = function () {
   this.checkedList.length = 0;
 };
 
-//method to extract check list
+//method to extract required information from check list based on choice 
 Days.prototype.extractCheckedList = function (choice) {
   "use strict"
   var checkBoxesCounter;
