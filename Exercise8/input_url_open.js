@@ -1,48 +1,48 @@
 /*Input Url Name and open it in a new window*/
 /*jslint browser: true, devel: true */
-var Prompt = function () {
+var PopUpWindow = function () {
   "use strict";
-  this.UrlName = "";
-  this.regexUrl = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
+  this.url = "http://www.google.com";
+  this.regexUrl = /^((ht|f)tps?:| )?\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
 };
 
 //method to get URL from user
-Prompt.prototype.getUrlName = function () {
+PopUpWindow.prototype.getUrlName = function () {
   "use strict";
   var check;
   do {
-    this.UrlName = prompt("Please Input the URL you want to open", "http://www.google.com");
-    this.UrlName = this.UrlName.trim();
-    check = this.validateInputUrl();
+    this.url = prompt("Please Input the URL you want to open", this.url);
+    this.url = this.url.trim();
+    check = this.validateUrl();
   } while (check);
   this.openNewWindow();
 };
 
 //method to open a New window
-Prompt.prototype.openNewWindow = function () {
+PopUpWindow.prototype.openNewWindow = function () {
   "use strict";
-  window.open(this.UrlName, "", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
+  window.open(this.url, "", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
 
 //method to validate input
-Prompt.prototype.validateInputUrl = function () {
+PopUpWindow.prototype.validateUrl = function () {
   "use strict";
-  if (!this.UrlName) {
-  	alert("Please enter a new Url. Blank Field will not be accepted");
-  	return true;
-  }
-  if (!/^https?:\/\//i.test(this.UrlName) && !!this.UrlName) {
-    this.UrlName = 'http://' + this.UrlName;
-  }
-  if (!this.regexUrl.test(this.UrlName)) {
-    alert("This Url: " + this.UrlName + " is invalid. Please enter a new Url");
+  if (!this.url) {
+    alert("Please enter a new Url. Blank Field will not be accepted");
     return true;
-  } 
+  }
+  if (!/^https?:\/\//i.test(this.url) && !!this.url) {
+    this.url = 'http://' + this.url;
+  }
+  if (!this.regexUrl.test(this.url)) {
+    alert("This Url: " + this.url + " is invalid. Please enter a new Url");
+    return true;
+  }
   return false;
 };
 
 window.onload = function () {
   "use strict";
-  var prompt = new Prompt();
-  prompt.getUrlName();
+  var popUpWindow = new PopUpWindow();
+  popUpWindow.getUrlName();
 };
