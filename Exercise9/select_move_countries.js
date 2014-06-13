@@ -2,13 +2,16 @@
 /*jslint browser: true, devel: true */
 var CountryList = function (containerElement, firstSelectListElement, secondSelectListElement) {
   "use strict";
-  this.init = function () {
-    this.containerElement = document.getElementById("container");;
-    this.firstSelectListElement = document.getElementById("firstList");
-    this.secondSelectListElement = document.getElementById("secondList");
-    this.bindEvent();
-  };
+  this.init();
 };
+
+//method for initiation
+CountryList.prototype.init = function () {
+  this.containerElement = document.getElementById("container");;
+  this.firstSelectListElement = document.getElementById("firstList");
+  this.secondSelectListElement = document.getElementById("secondList");
+  this.bindEvent();
+}
 
 //method to check whether to add country or remove country
 CountryList.prototype.checkEventType = function (event) {
@@ -39,5 +42,4 @@ CountryList.prototype.bindEvent = function () {
 window.onload = function () {
   "use strict";
   var countryList = new CountryList();
-  countryList.init();
 };
