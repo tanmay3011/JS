@@ -2,9 +2,12 @@
 /*jslint browser: true, devel: true */
 var CountryList = function (containerElement, firstSelectListElement, secondSelectListElement) {
   "use strict";
-  this.containerElement = containerElement;
-  this.firstSelectListElement = firstSelectListElement;
-  this.secondSelectListElement = secondSelectListElement;
+  this.init = function () {
+    this.containerElement = document.getElementById("container");;
+    this.firstSelectListElement = document.getElementById("firstList");
+    this.secondSelectListElement = document.getElementById("secondList");
+    this.bindEvent();
+  };
 };
 
 //method to check whether to add country or remove country
@@ -21,19 +24,20 @@ CountryList.prototype.checkEventType = function (event) {
 CountryList.prototype.moveCountries = function (list1, list2) {
   "use strict";
   var selectedCountriesCounter;
-  for (selectedCountriesCounter = 0; selectedCountriesCounter < list1.options.length; selectedCountriesCounter++) {
-    if (list1.options[selectedCountriesCounter].selected) {
-      list2.appendChild(list1.options[selectedCountriesCounter--]);
-    }
+  while (list1.selectedIndex !== -1) {
+    list2.appendChild(list1.options[list1.selectedIndex]);
   }
+};
+
+CountryList.prototype.bindEvent = function () {
+  "use strict";
+  var that = this;
+  this.containerElement.addEventListener('click', function (event) { that.checkEventType(event); }, false);
 };
 
 //method to run javascript after loading whole page (mentioned script in head portion)
 window.onload = function () {
   "use strict";
-  var containerElement = document.getElementById("container");
-  var firstSelectListElement = document.getElementById("firstList");
-  var secondSelectListElement = document.getElementById("secondList");
-  var countryList = new CountryList(containerElement, firstSelectListElement, secondSelectListElement);
-  containerElement.addEventListener('click', function (event) { countryList.checkEventType(event); }, false);
+  var countryList = new CountryList();
+  countryList.init();
 };
