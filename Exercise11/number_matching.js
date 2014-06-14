@@ -15,15 +15,14 @@ NumericalValue.prototype.checkNumberValidity = function () {
   if (!this.regexNumber.test(this.number.value)) {
     this.flag = false;
   }
-}
+};
 
 //method to validate number
 NumericalValue.prototype.validate = function () {
   "use strict";
   this.checkNumberValidity();
   this.displayResult();
-  if(this.flag) {
-    console.log(this.form);
+  if (this.flag) {
     this.form.submit();
   }
 };
@@ -32,19 +31,18 @@ NumericalValue.prototype.validate = function () {
 NumericalValue.prototype.displayResult = function () {
   "use strict";
   this.result.value = this.flag;
-}
+};
 
 //attached event on submit click
 var formHandler = function (e) {
   "use strict";
-  var inputedElement = document.getElementById('number');
-  var resultElement = document.getElementById('result');
-  var formElement = document.getElementById('numberForm');
-  var number = new NumericalValue(formElement, inputedElement, resultElement);
+  var inputedElement = document.getElementById('number'),
+      resultElement = document.getElementById('result'),
+      formElement = document.getElementById('numberForm'),
+      number = new NumericalValue(formElement, inputedElement, resultElement);
   e.preventDefault();
   number.validate();
-
-}
+};
 
 //method to run javascript after loading whole page (mentioned script in head portion)
 window.onload = function () {
