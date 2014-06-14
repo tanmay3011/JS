@@ -34,15 +34,27 @@ Days.prototype.extractCheckedList = function (choice) {
   this.daysChecked = "";
   for (checkBoxesCounter = 0; checkBoxesCounter < this.checkedList.length; checkBoxesCounter++) {
     if(choice === "checkNone") {
-      this.checkBoxes[this.checkedList[checkBoxesCounter].id].checked = false;
+      this.checkAllNone(checkBoxesCounter);
     } else if (choice === "extractString") {
-      this.daysChecked = this.checkedList[checkBoxesCounter].value + "," + this.daysChecked;
+      this.extractString(checkBoxesCounter);
     } else {
       if (this.checkedList[checkBoxesCounter].id === choice) {
         return checkBoxesCounter;
       }
     }
   }
+};
+
+//method to check false all those who were checked
+Days.prototype.checkAllNone = function (counter) {
+  "use strict"; 
+  this.checkBoxes[this.checkedList[counter].id].checked = false;
+};
+
+//method to check false all those who were checked
+Days.prototype.extractString = function (counter) {
+  "use strict";
+  this.daysChecked = this.checkedList[counter].value + "," + this.daysChecked; 
 };
 
 //method to check the main functionality of checking three days
