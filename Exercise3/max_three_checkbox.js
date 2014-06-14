@@ -96,6 +96,11 @@ window.onload = function () {
   var checkBoxesElement = document.getElementsByName("dayCheckBox");
   var days = new Days();
   days.init(gridElement, noneSelectElement, checkBoxesElement);
-  gridElement.addEventListener('click', function (event) { noneSelectElement[0].checked = false; days.checkBoxEvent(event); }, false);
-  noneSelectElement[0].addEventListener('click', function (event) { days.checkNone(); }, false);
+  gridElement.addEventListener('click', function (event) {
+    noneSelectElement[0].checked = false;
+    days.checkBoxEvent(event);
+  }, false);
+  noneSelectElement[0].addEventListener('click', function (event) { 
+    days.checkNone();
+  }, false);
 };
