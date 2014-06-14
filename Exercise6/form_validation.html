@@ -1,58 +1,44 @@
-<!DOCTYPE html>
-<!-- JS Exercise6 by. Tanmay Sinha(tanmay@vinsol.com) -->
+<!DOCTYPE html><!--change1-->
+<!-- JS Exercise 6 by Tanmay Sinha(tanmay@vinsol.com) -->
 
 <html lang='en'>
   <head>
     <title>
-      JS Form Validation Exercise
+      JS Exercise 6
     </title>     
-  <script type="text/javascript" src="form_validation.js"></script>  
-  <link rel="stylesheet" type="text/css" href="form_validation.css">
+    <script type="text/javascript" src="form_validation.js"></script>
+    <link rel="stylesheet" type="text/css" href="form_validation.css">
   </head>
+
   <body>
     <div id="container">
-      <h1>Registration Form</h1>
-      <form id="userRegistrationForm">
-        <table>
-          <tr>
-            <td>Login Id</td>
-            <td><input id="Login Id" name="textinput"></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td><input id="Email" name="textinput"></td>
-          </tr>
-          <tr>
-            <td>Name</td>
-            <td><input id="Name" name="textinput"></td>
-          </tr>
-          <tr>
-            <td>Timezone</td>
-            <td>
-              <select id="TimeZone" name="selectinput">
-                <option value="GMT">GMT</option>
-                <option value="GMT +5.5">GMT +5.50</option>
-                <option value="GMT +1">GMT +1</option>
-                <option value="GMT +4">GMT +4</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Home Page</td>
-            <td><input id="HomePage" name="textinput"></td>
-          </tr>
-        </table>
-
-        <p>About me<br/>
-        <textarea id="textbox" name="textbox" rows="10" cols="40"></textarea><br>
-        <input type="checkbox" id="checkbox" name="checkbox">
-        <label for="checkbox">Receive notification of comments</label> <br>
-
-        You will be sent an email when someone post comments to your blog or Album
-        Your password would be mailed to you</p>
-        <input type="submit" value="Go" id="submit" name="save" />
+      <div id="formHeader">
+        <h4>Registeration Form</h4>
+      </div>
+      <form id="registerationForm" action="#">
+      <span>Login Id</span><input type="text" id="loginId" name="LoginId" class="TextFields" /><br>
+      <span>Email</span><input type="email" id="email" name="Email" class="TextFields" /><br>
+      <span>Name</span><input type="text" id="nameOfPerson" name="NameOfPerson" class="TextFields" /><br>
+      <span>Timezone</span>
+      <select id="timeZone" name="TimeZone" />
+        <option value="GMT">GMT</option>
+        <option value="GMT +5.5">GMT +5.50</option>
+        <option value="EST">EST</option>
+        <option value="PST">PST</option>
+      </select><br>
+      <span>Home Page</span><input type="text" id="homePage" name="HomePage" class="TextFields" /><br>
+      <span>About me</span><textarea id="aboutMe" name="About_Me" rows="10" cols="20"  >
+        </textarea><br>
+      <input type="checkbox" name="Notification" id="notification">
+      <label for="notification">
+        Receive notification of comments
+      </label>
+      <p>You will be sent an email when someone post comments to your blog or Album</p>
+      <div id="submitText">
+        <p>Your password would be mailed to you</p>
+        <input type="button" value="Go" id="submitButton"/>
+      </div>
       </form>
-    </div>  
+    </div>
   </body>
 </html>
-

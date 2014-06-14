@@ -3,49 +3,85 @@
   padding: 0;
 }
 
-#container {
-  margin: 0px auto;
-  width: 400px;
-  background-color: #DFECE0;
+#container
+{
+  background: #E8F2D7;
+  width:20em;
+  margin:auto;
+  padding:0px 0px 10px 10px;
 }
 
-h1 {
-  margin: 0px auto;
-  width: 400px;
-  background-color: #1AA874;
-  font: 16px Tahoma;
-  color:#ffffff;
-  text-align: center;
+span
+{
+  font-size:12px;
+  font-weight:bold;
+  display:inline-block;
+  padding-right:50px;
+  width:5em;
 }
 
-.input {  
-  width:200px;
-  border:solid 1px #9ACD44;
-  position:relative;
+#nameOfPerson , #email
+{
+ background-color: yellow;
+}
+
+label
+{
+  font-size:12px;
+  font-weight:bold;
 }
 
 p
 {
-  margin-left: 10px
-}
-#selectbox {
-
-  width:100px;
-  border:solid 1px #9ACD44;
+  font-size:10px;
+  font-weight:400;
 }
 
-textarea{
-  resize:none;
-  height: 150px;
-  width: 350px;
-}
-
-input[type="submit"]
+textarea
 {
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: #536238;
-  color: white;
-  display: block;
-  margin: 0px auto;
+width:23em;
+}
+
+span
+{
+  
+}
+
+#submitText
+{
+  text-align:center;
+  width:18em;
+  margin:auto;
+  font-size:12px;
+  font-weight:400;
+}
+
+#formHeader
+{
+  font-size:12px;
+  font-weight:bold;
+  text-align:center;
+  background:#9AB386;
+  color:white;
+  margin-left:-10px;
+  margin-bottom:20px;
+}
+
+input,textarea,select
+{
+  border: 1px solid green;
+}
+
+select
+{
+  width:10em;
+  background:white;
+}
+
+input[type='button']
+{
+  border: 1px solid #566238;
+  border-radius:25px;
+  background:#566238;
+  color:white;
 }
