@@ -1,7 +1,7 @@
 /*Find Domain SubDomain*/
 /*jslint browser: true, devel: true */
 var constant = {
-  regexUrl :  /(http[s]?\:\/\/)?([w]{3}.)([\w]+)(\.)?(\.)?([a-z.]{2,6})?([a-z.]{2,6})(\/)?([\w]+\/?)*$/
+  regexUrl : /(http[s]?\:\/\/)?([w]{3}.)((([\w]+)?\.)*)?([a-z.]+\.[a-z.]{2,4})([\/][\w%.-]+)*(\/)?([#][\w9%-]+)?([\?][\w%.]+\=[\w%]+)?(&[\w%.]+\=[\w%.]*)*$/i
 };
 
 var UrlDomainSubDomain = function (object) {
@@ -23,7 +23,7 @@ UrlDomainSubDomain.prototype.init = function () {
 //method to find domain codomain
 UrlDomainSubDomain.prototype.findDomainSubDomain = function () {
   "use strict";
-  alert((!RegExp.$6) ? 'Domain: ' + RegExp.$3 + RegExp.$4 + RegExp.$7 : 'Subdomain: ' + RegExp.$3 + ' Domain: ' + RegExp.$6 + RegExp.$7);
+  alert((!RegExp.$5) ? 'Domain: ' +  RegExp.$6 : 'Subdomain: ' + RegExp.$5 + ' Domain: ' + RegExp.$6);
 };
 
 //method number whether number matches with the regex or not
