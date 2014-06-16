@@ -14,7 +14,7 @@ var Form = function (formElement, textFieldsElement, selectTimeZoneElement, abou
 };
 
 Form.prototype = {
-  
+  //method to validate textfield inputs
   validateTextFields : function () {
     "use strict";
     var textFieldsCounter;
@@ -32,6 +32,7 @@ Form.prototype = {
     }  
   },
 
+  //method to validate AboutMe Text
   validateAboutMe : function () {
     "use strict";
     this.aboutMe.value = this.aboutMe.value.trim();
@@ -45,6 +46,7 @@ Form.prototype = {
     }  
   },
 
+  //method to validate selectbox input
   validateSelectTimeZone : function () {
     "use strict";
     if (this.selectTimeZone.options[this.selectTimeZone.selectedIndex].text === "GMT") {
@@ -53,6 +55,7 @@ Form.prototype = {
     }
   },
   
+  //method to validate notification checkbox checked or not
   validateNotificationCheck : function () {
     "use strict";
     if (this.notificationCheck.checked === false) {
@@ -61,6 +64,7 @@ Form.prototype = {
     }  
   },
 
+  //method to throw error
   throwErrors : function () {
     "use strict";
     var errorCounter;
@@ -70,11 +74,13 @@ Form.prototype = {
     this.errors.length = 0;
   },
 
+  //method to show submit confirmation
   sendConfirmation : function () {
     "use strict";
     alert("Form Submitted");
   },
 
+  //method to test URL with the regex if it's not NULL
   validUrl : function (url) {
     "use strict";
     var valid;
@@ -88,6 +94,7 @@ Form.prototype = {
     }
   },
 
+  //method to test Email with the regex if it's not NULL
   validEmailId : function (email) {
     "use strict";
     var valid = this.regexMail.test(email);
@@ -97,6 +104,7 @@ Form.prototype = {
     }
   },
 
+  //method to validate
   validate : function (event) {
     "use strict";
     this.validateTextFields();
@@ -111,10 +119,6 @@ Form.prototype = {
       event.preventDefault();
     }
   }
-};
-
-var formHandler = function () {
-  
 };
 
 //method to run javascript after loading whole page (mentioned script in head portion)
