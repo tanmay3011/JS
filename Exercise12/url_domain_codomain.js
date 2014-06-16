@@ -1,7 +1,7 @@
 /*Find Domain SubDomain*/
 /*jslint browser: true, devel: true */
 var constant = {
-  regexUrl :  /(http[s]?\:\/\/)?(w{3}.)?([\w]+)(\.)?(\.)?([a-z.]{2,6})?([a-z.]{2,6})(\/)?([\w]+\/?)*$/
+  regexUrl :  /(http[s]?\:\/\/)?([w]{3}.)([\w]+)(\.)?(\.)?([a-z.]{2,6})?([a-z.]{2,6})(\/)?([\w]+\/?)*$/
 };
 
 var UrlDomainSubDomain = function () {
@@ -34,7 +34,7 @@ UrlDomainSubDomain.prototype.checkUrlValidity = function (e) {
   this.url = document.getElementById('url');
   if (!constant.regexUrl.test(this.url.value)) {
     alert("Wrong Url Entered! Please Enter a new url");
-    //e.preventDefault();
+    e.preventDefault();
   } else {
     this.findDomainSubDomain();
   }
@@ -45,33 +45,7 @@ UrlDomainSubDomain.prototype.bindEvent = function () {
   "use strict";
   var that = this;
   this.submitButton = document.getElementById('submitButton');
-  this.cb_addEventListener(this.form, 'submit', this.checkUrlValidity);
-  //this.form.addEventListener('submit', function (event) { that.checkUrlValidity(event); }, false);
-};
-
-
-UrlDomainSubDomain.prototype.cb_addEventListener = function (obj, evt, fnc) {
-  "use strict";
-  if (obj.addEventListener) {
-    console.log(obj);
-    obj.addEventListener(evt, fnc, false);
-  return true;
-  } else if (obj.attachEvent) {
-    return obj.attachEvent('on' + evt, fnc);
-  } else {
-    evt = 'on'+evt;
-    if(typeof obj[evt] === 'function') {
-      fnc = (function(f1,f2) {
-        return function() {
-          f1.apply(this,arguments);
-          f2.apply(this,arguments);
-        }
-      })(obj[evt], fnc);
-    }
-    obj[evt] = fnc;
-    return true;
-  }
-  return false;
+  this.form.addEventListener('submit', function (event) { that.checkUrlValidity(event); }, false);
 };
 
 //method to run javascript after loading whole page (mentioned script in head portion)
