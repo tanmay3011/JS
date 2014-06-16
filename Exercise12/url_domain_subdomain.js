@@ -1,7 +1,7 @@
 /*Find Domain SubDomain*/
 /*jslint browser: true, devel: true */
 var constant = {
-  regexUrl : /(http[s]?\:\/\/)?([w]{3}.)((([\w]+)?\.)*)?([a-z.]+\.[a-z.]{2,4})([\/][\w%.-]+)*(\/)?([#][\w9%-]+)?([\?][\w%.]+\=[\w%]+)?(&[\w%.]+\=[\w%.]*)*$/i
+  regexUrl : /(http[s]?\:\/\/)?([w]{3}.)?((([\w]+)?\.)*)?([a-z.]+\.[a-z.]{2,4})([\/][\w%.-]+)*(\/)?([#][\w9%-]+)?([\?][\w%.]+\=[\w%]+)?(&[\w%.]+\=[\w%.]*)*$/i
 };
 
 var UrlDomainSubDomain = function (object) {
