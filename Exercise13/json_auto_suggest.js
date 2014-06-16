@@ -24,25 +24,25 @@ var person = [ {"name":"Luigi Damiano"},
   {"name":"Rick Olson"} ];
 
 //class
-var AutoComplete = function (nameElement) {
+var AutoComplete = function (nameElement, nameArray) {
   "use strict";
   this.nameElement = nameElement;
+  this.nameArray = nameArray;
 };
 
 //method  to find matching names
 AutoComplete.prototype.setName = function () {
   "use strict";
   var namesCounter ,
-      nameArray = document.getElementById("container"),
-        suggestionArray = [];
-  nameArray.style.display = "none";
-  this.clearList(nameArray, suggestionArray);
+      suggestionArray = [];
+  this.nameArray.style.display = "none";
+  this.clearList(this.nameArray, suggestionArray);
   for (namesCounter = person.length - 1; namesCounter >= 0; namesCounter--) {
     if(person[namesCounter].name.toLowerCase().indexOf(this.nameElement.value.toLowerCase()) > -1) {
       suggestionArray.push(person[namesCounter].name);
     }
   }
-  this.displayName(suggestionArray, nameArray);
+  this.displayName(suggestionArray, this.nameArray);
 };
 
 //method to display list
@@ -83,6 +83,7 @@ AutoComplete.prototype.createNode = function (namesCounter, suggestionArray) {
 window.onload = function () {
   "use strict";
   var nameElement = document.getElementById('fullName');
-  var autoComplete = new AutoComplete(nameElement);
+  var nameArray = document.getElementById("container");
+  var autoComplete = new AutoComplete(nameElement, nameArray);
   nameElement.addEventListener('keyup' , function(event) { autoComplete.setName(); }, false);
 };

@@ -4,21 +4,19 @@ var constant = {
   regexUrl :  /(http[s]?\:\/\/)?([w]{3}.)([\w]+)(\.)?(\.)?([a-z.]{2,6})?([a-z.]{2,6})(\/)?([\w]+\/?)*$/
 };
 
-var UrlDomainSubDomain = function () {
+var UrlDomainSubDomain = function (submitButton, formElement) {
   "use strict";
   this.url;
   this.domainName;
   this.subDomainName;
-  this.form;
-  this.submitButton;
+  this.form = formElement;
+  this.submitButton = submitButton;
   this.init();
 };
 
 //attached event on submit click
 UrlDomainSubDomain.prototype.init = function () {
   "use strict";
-  this.submitButton = document.getElementById('submitButton');
-  this.form = document.getElementById('urlForm');
   this.bindEvent();
 };
 
@@ -50,7 +48,9 @@ UrlDomainSubDomain.prototype.bindEvent = function () {
 //method to run javascript after loading whole page (mentioned script in head portion)
 window.onload = function () {
   "use strict";
-  var urlDomainSubDomain = new UrlDomainSubDomain();
+  var submitButton = document.getElementById('submitButton'),
+      formElement = document.getElementById('urlForm'),
+      urlDomainSubDomain = new UrlDomainSubDomain(submitButton, formElement);
 };
 
 

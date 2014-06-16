@@ -1,16 +1,23 @@
 /* Numerical Value Matching*/
 /*jslint browser: true, devel: true */
-var NumericalValue = function () {
+var Form = function (numberElement, resultElement, formElement, submitButton) {
   "use strict";
-  this.number = document.getElementById('number');
-  this.result = document.getElementById('result');
-  this.form = document.getElementById('numberForm');
+  this.number = numberElement;
+  this.result = resultElement;
+  this.form = formElement;
+  this.submitButton = submitButton;
   this.regexNumber = /^[0-9]+$/;
   this.valid = true;
 };
 
+//init to call other methods
+Form.prototype.init = function () {
+  "use strict";
+  this.bindEvent();
+};
+
 //method number whether number matches with the regex or not
-NumericalValue.prototype.checkNumberValidity = function () {
+Form.prototype.checkNumberValidity = function () {
   "use strict";
   this.number.value = this.number.value.trim();
   if (!this.regexNumber.test(this.number.value) || this.number.value === 0) {
@@ -19,7 +26,7 @@ NumericalValue.prototype.checkNumberValidity = function () {
 };
 
 //method to validate number
-NumericalValue.prototype.validate = function () {
+Form.prototype.validate = function () {
   "use strict";
   this.checkNumberValidity();
   this.displayResult();
@@ -29,21 +36,25 @@ NumericalValue.prototype.validate = function () {
 };
 
 //method to display result
-NumericalValue.prototype.displayResult = function () {
+Form.prototype.displayResult = function () {
   "use strict";
   this.result.value = this.valid;
 };
 
-//attached event on submit click
-var formHandler = function (e) {
+//method to bindEvent
+Form.prototype.bindEvent = function () {
   "use strict";
-  number = new NumericalValue();
-  number.validate();
+  var that = this;
+  this.submitButton.addEventListener('click', function (event) { that.validate(); }, false);
 };
 
 //method to run javascript after loading whole page (mentioned script in head portion)
 window.onload = function () {
   "use strict";
-  var submitButton = document.getElementById('submitButton');
-  submitButton.addEventListener('click', formHandler, false);
+  var numberElement = document.getElementById('number'),
+      resultElement = document.getElementById('result'),
+      formElement = document.getElementById('numberForm'),
+      submitButton = document.getElementById('submitButton'),
+      form = new Form(numberElement, resultElement, formElement, submitButton);
+      form.init();
 };
