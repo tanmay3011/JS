@@ -113,7 +113,6 @@ Form.prototype = {
     this.validateNotificationCheck();
     if (this.errors.length === 0) {
       this.sendConfirmation();
-      //this.form.submit();
     } else {
       this.throwErrors();
       event.preventDefault();
