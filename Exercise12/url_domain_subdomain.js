@@ -4,13 +4,13 @@ var constant = {
   regexUrl :  /(http[s]?\:\/\/)?([w]{3}.)([\w]+)(\.)?(\.)?([a-z.]{2,6})?([a-z.]{2,6})(\/)?([\w]+\/?)*$/
 };
 
-var UrlDomainSubDomain = function (submitButton, formElement) {
+var UrlDomainSubDomain = function (object) {
   "use strict";
-  this.url;
   this.domainName;
   this.subDomainName;
-  this.form = formElement;
-  this.submitButton = submitButton;
+  this.form = object.form;
+  this.url = object.url;
+  this.submitButton = object.button;
   this.init();
 };
 
@@ -29,7 +29,6 @@ UrlDomainSubDomain.prototype.findDomainSubDomain = function () {
 //method number whether number matches with the regex or not
 UrlDomainSubDomain.prototype.checkUrlValidity = function (e) {
   "use strict";
-  this.url = document.getElementById('url');
   if (!constant.regexUrl.test(this.url.value.trim())) {
     alert("Wrong Url Entered! Please Enter a new url");
     e.preventDefault();
@@ -50,7 +49,9 @@ window.onload = function () {
   "use strict";
   var submitButton = document.getElementById('submitButton'),
       formElement = document.getElementById('urlForm'),
-      urlDomainSubDomain = new UrlDomainSubDomain(submitButton, formElement);
+      url = document.getElementById('url'),
+      object = { "button" : submitButton , "form" : formElement , "url" : url},
+      urlDomainSubDomain = new UrlDomainSubDomain(object);
 };
 
 
