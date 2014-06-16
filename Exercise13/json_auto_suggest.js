@@ -43,6 +43,9 @@ AutoComplete.prototype.setName = function () {
     }
   }
   this.displayName(suggestionArray, this.nameArray);
+  if(!this.nameElement.value.trim()) {
+    this.clearList(this.nameArray, suggestionArray);                  // to remove the box once the input field is emptied after selection
+  }
 };
 
 //method to display list
@@ -73,7 +76,7 @@ AutoComplete.prototype.clearList = function(nameArray, suggestionArray) {
 //create a paragraph node to display the matching text
 AutoComplete.prototype.createNode = function (namesCounter, suggestionArray) {
   "use strict";
-  var node = document.createElement("p");
+  var node = document.createElement("li");
   var text = document.createTextNode(suggestionArray[namesCounter]);
   node.appendChild(text);
   return node;
@@ -83,7 +86,7 @@ AutoComplete.prototype.createNode = function (namesCounter, suggestionArray) {
 window.onload = function () {
   "use strict";
   var nameElement = document.getElementById('fullName');
-  var nameArray = document.getElementById("container");
+  var nameArray = document.getElementById("grid");
   var autoComplete = new AutoComplete(nameElement, nameArray);
   nameElement.addEventListener('keyup' , function(event) { autoComplete.setName(); }, false);
 };
