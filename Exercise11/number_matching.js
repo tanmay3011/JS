@@ -2,18 +2,19 @@
 /*jslint browser: true, devel: true */
 var NumericalValue = function (formElement, inputedElement, resultElement) {
   "use strict";
-  this.number = inputedElement;
-  this.form = formElement;
-  this.result = resultElement;
+  this.number = document.getElementById('number');
+  this.result = document.getElementById('result');
+  this.form = document.getElementById('numberForm');
   this.regexNumber = /^[0-9]*$/;
-  this.flag = true;
+  this.valid = true;
 };
 
 //method number whether number matches with the regex or not
 NumericalValue.prototype.checkNumberValidity = function () {
   "use strict";
+  this.number.value = this.number.value.trim();
   if (!this.regexNumber.test(this.number.value)) {
-    this.flag = false;
+    this.valid = false;
   }
 };
 
@@ -22,7 +23,7 @@ NumericalValue.prototype.validate = function () {
   "use strict";
   this.checkNumberValidity();
   this.displayResult();
-  if (this.flag) {
+  if (this.valid) {
     this.form.submit();
   }
 };
@@ -30,17 +31,13 @@ NumericalValue.prototype.validate = function () {
 //method to display result
 NumericalValue.prototype.displayResult = function () {
   "use strict";
-  this.result.value = this.flag;
+  this.result.value = this.valid;
 };
 
 //attached event on submit click
 var formHandler = function (e) {
   "use strict";
-  var inputedElement = document.getElementById('number'),
-      resultElement = document.getElementById('result'),
-      formElement = document.getElementById('numberForm'),
-      number = new NumericalValue(formElement, inputedElement, resultElement);
-  e.preventDefault();
+  number = new NumericalValue();
   number.validate();
 };
 

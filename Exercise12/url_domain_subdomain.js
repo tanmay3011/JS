@@ -32,7 +32,7 @@ UrlDomainSubDomain.prototype.findDomainSubDomain = function () {
 UrlDomainSubDomain.prototype.checkUrlValidity = function (e) {
   "use strict";
   this.url = document.getElementById('url');
-  if (!constant.regexUrl.test(this.url.value)) {
+  if (!constant.regexUrl.test(this.url.value.trim())) {
     alert("Wrong Url Entered! Please Enter a new url");
     e.preventDefault();
   } else {
@@ -44,7 +44,6 @@ UrlDomainSubDomain.prototype.checkUrlValidity = function (e) {
 UrlDomainSubDomain.prototype.bindEvent = function () {
   "use strict";
   var that = this;
-  this.submitButton = document.getElementById('submitButton');
   this.form.addEventListener('submit', function (event) { that.checkUrlValidity(event); }, false);
 };
 
