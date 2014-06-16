@@ -24,63 +24,57 @@ var person = [ {"name":"Luigi Damiano"},
   {"name":"Rick Olson"} ];
 
 //class
-var Names = function (nameElement) {
+var AutoComplete = function (nameElement) {
   "use strict";
-  this.suggestionArray = [];
   this.nameElement = nameElement;
-  this.init();
-};
-
-//initialisation
-Names.prototype.init = function () {
-  "use strict";
-  this.nameArray = document.getElementById("container");
-  this.nameArray.style.display = "none";
 };
 
 //method  to find matching names
-Names.prototype.setName = function () {
+AutoComplete.prototype.setName = function () {
   "use strict";
-  var namesCounter;
-  this.clearList();
+  var namesCounter ,
+      nameArray = document.getElementById("container"),
+        suggestionArray = [];
+  nameArray.style.display = "none";
+  this.clearList(nameArray, suggestionArray);
   for (namesCounter = person.length - 1; namesCounter >= 0; namesCounter--) {
-    if(person[namesCounter].name.toLowerCase().indexOf(this.nameElement.value) > -1) {
-      this.suggestionArray.push(person[namesCounter].name);
+    if(person[namesCounter].name.toLowerCase().indexOf(this.nameElement.value.toLowerCase()) > -1) {
+      suggestionArray.push(person[namesCounter].name);
     }
   }
-  this.displayName();
+  this.displayName(suggestionArray, nameArray);
 };
 
 //method to display list
-Names.prototype.displayName = function () {
+AutoComplete.prototype.displayName = function (suggestionArray, nameArray) {
   "use strict";
   var that = this, namesCounter, node;
-  for (namesCounter = 0; namesCounter < this.suggestionArray.length; namesCounter++) {
-    if (this.suggestionArray.length > 0) {
-      node = this.createNode(namesCounter);
-      this.nameArray.appendChild(node);
-      this.nameArray.style.display = "block";
+  for (namesCounter = 0; namesCounter < suggestionArray.length; namesCounter++) {
+    if (suggestionArray.length > 0) {
+      node = this.createNode(namesCounter, suggestionArray);
+      nameArray.appendChild(node);
+      nameArray.style.display = "block";
       node.onclick = function() {
         that.nameElement.value = this.textContent;
-        that.clearList();
+        that.clearList(nameArray, suggestionArray);
       }
     }
   }
 };
 
 //method to clear the list
-Names.prototype.clearList = function() {
+AutoComplete.prototype.clearList = function(nameArray, suggestionArray) {
   "use strict";
-  this.nameArray.innerHTML = '';
-  this.nameArray.style.display = 'none';
-  this.suggestionArray.length = 0;
+  nameArray.innerHTML = '';
+  nameArray.style.display = 'none';
+  suggestionArray.length = 0;
 };
 
 //create a paragraph node to display the matching text
-Names.prototype.createNode = function (namesCounter) {
+AutoComplete.prototype.createNode = function (namesCounter, suggestionArray) {
   "use strict";
   var node = document.createElement("p");
-  var text = document.createTextNode(this.suggestionArray[namesCounter]);
+  var text = document.createTextNode(suggestionArray[namesCounter]);
   node.appendChild(text);
   return node;
 };
@@ -89,6 +83,6 @@ Names.prototype.createNode = function (namesCounter) {
 window.onload = function () {
   "use strict";
   var nameElement = document.getElementById('fullName');
-  var names = new Names(nameElement);
-  nameElement.addEventListener('keyup' , function(event) { names.setName(); }, false);
+  var autoComplete = new AutoComplete(nameElement);
+  nameElement.addEventListener('keyup' , function(event) { autoComplete.setName(); }, false);
 };
