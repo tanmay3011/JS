@@ -15,7 +15,7 @@ var UrlDomainSubDomain = function () {
 };
 
 //attached event on submit click
-UrlDomainSubDomain.prototype.init = function (e) {
+UrlDomainSubDomain.prototype.init = function () {
   "use strict";
   this.submitButton = document.getElementById('submitButton');
   this.form = document.getElementById('urlForm');
