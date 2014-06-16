@@ -1,11 +1,11 @@
 /* Numerical Value Matching*/
 /*jslint browser: true, devel: true */
-var NumericalValue = function (formElement, inputedElement, resultElement) {
+var NumericalValue = function () {
   "use strict";
   this.number = document.getElementById('number');
   this.result = document.getElementById('result');
   this.form = document.getElementById('numberForm');
-  this.regexNumber = /^[0-9]*$/;
+  this.regexNumber = /^[0-9]+$/;
   this.valid = true;
 };
 
@@ -13,7 +13,7 @@ var NumericalValue = function (formElement, inputedElement, resultElement) {
 NumericalValue.prototype.checkNumberValidity = function () {
   "use strict";
   this.number.value = this.number.value.trim();
-  if (!this.regexNumber.test(this.number.value)) {
+  if (!this.regexNumber.test(this.number.value) || this.number.value === 0) {
     this.valid = false;
   }
 };
