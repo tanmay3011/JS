@@ -93,13 +93,11 @@ Form.prototype = {
 //method to run javascript after loading whole page (mentioned script in head portion)
 window.onload = function () {
   "use strict";
-  "use strict";
   var textFieldsElement = document.getElementsByClassName('TextFields'),
       selectTimeZoneElement = document.getElementById('timeZone'),
       aboutMeElement = document.getElementById('aboutMe'),
       notificationCheckElement = document.getElementById('notification'),
       formElement = document.getElementById('registerationForm'),
       form = new Form(formElement, textFieldsElement, selectTimeZoneElement, aboutMeElement, notificationCheckElement);
-      console.log(formElement);
   formElement.addEventListener('submit', function (event) {form.validate(event);}, false);
 };
