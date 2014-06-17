@@ -4,17 +4,14 @@ var PopUpWindow = function () {
   "use strict";
   this.url = "http://www.google.com";
   this.regexUrl = /(http[s]?\:\/\/)?([w]{3}.)?((([\w]+)?\.)*)?([a-z.]+\.[a-z.]{2,4})([\/][\w%.-]+)*(\/)?([#][\w9%-]+)?([\?][\w%.]+\=[\w%]+)?(&[\w%.]+\=[\w%.]*)*$/i;
+  this.init();
 };
 
 //method to get URL from user
 PopUpWindow.prototype.getUrl = function () {
   "use strict";
-  var isValid;
-  do {
-    this.url = prompt("Please Input the URL you want to open", this.url);
-    this.url = this.url.trim();
-    isValid = this.validateUrl();
-  } while (isValid);
+  this.url = prompt("Please Input the URL you want to open", this.url);
+  this.validateAndOpenUrl();
 };
 
 //method to open a New window
@@ -24,17 +21,19 @@ PopUpWindow.prototype.openNewWindow = function () {
 };
 
 //method to validate input
-PopUpWindow.prototype.validateUrl = function () {
+PopUpWindow.prototype.validateAndOpenUrl = function () {
   "use strict";
-  if (!this.url) {
+  if (!this.url.trim()) {
     alert("Please enter a new Url. Blank Field will not be accepted");
-    return true;
-  }  
-  if (!this.regexUrl.test(this.url)) {
+    new PopUpWindow();
+  } else if (!this.regexUrl.test(this.url.trim())) {
+    this.url = this.url.trim();
     alert("This Url: " + this.url + " is invalid. Please enter a new Url");
-    return true;
+    new PopUpWindow();
+  } else {
+    this.assignHttpIfNotPresent();
+    this.openNewWindow();
   }
-  return false;
 };
 
 //method to assignHttp to url if not present
@@ -49,12 +48,9 @@ PopUpWindow.prototype.assignHttpIfNotPresent = function () {
 PopUpWindow.prototype.init = function () {
   "use strict";
   this.getUrl();
-  this.assignHttpIfNotPresent();
-  this.openNewWindow();
 };
 
 window.onload = function () {
   "use strict";
   var popUpWindow = new PopUpWindow();
-  popUpWindow.init();
 };
