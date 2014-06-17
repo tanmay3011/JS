@@ -28,6 +28,7 @@ var AutoComplete = function (nameElement, nameArray) {
   "use strict";
   this.nameElement = nameElement;
   this.nameArray = nameArray;
+  this.init();
 };
 
 //method  to find matching names
@@ -42,14 +43,14 @@ AutoComplete.prototype.setName = function () {
       suggestionArray.push(person[namesCounter].name);
     }
   }
-  this.displayName(suggestionArray, this.nameArray);
+  this.displayMatchedNames(suggestionArray, this.nameArray);
   if(!this.nameElement.value.trim()) {
     this.clearList(this.nameArray, suggestionArray);                  // to remove the box once the input field is emptied after selection
   }
 };
 
 //method to display list
-AutoComplete.prototype.displayName = function (suggestionArray, nameArray) {
+AutoComplete.prototype.displayMatchedNames = function (suggestionArray, nameArray) {
   "use strict";
   var that = this, namesCounter, node;
   for (namesCounter = 0; namesCounter < suggestionArray.length; namesCounter++) {
@@ -82,11 +83,16 @@ AutoComplete.prototype.createNode = function (namesCounter, suggestionArray) {
   return node;
 };
 
+//method to initiate search 
+AutoComplete.prototype.init = function () {
+  var that = this;
+  this.nameElement.addEventListener('keyup' , function (event) { that.setName(); }, false);
+}
+
 //to run once the whole page loads
 window.onload = function () {
   "use strict";
   var nameElement = document.getElementById('fullName');
   var nameArray = document.getElementById("grid");
   var autoComplete = new AutoComplete(nameElement, nameArray);
-  nameElement.addEventListener('keyup' , function(event) { autoComplete.setName(); }, false);
 };
