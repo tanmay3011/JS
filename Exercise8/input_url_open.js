@@ -10,12 +10,14 @@ var PopUpWindow = function () {
 //method to get URL from user
 PopUpWindow.prototype.getUrl = function () {
   "use strict";
+  var ifNotValid;
   do {
     this.url = prompt("Please Input the URL you want to open", this.url);
     if (this.url !== null) {
       this.url = this.url.trim();
     }
-  } while (this.validateUrl());
+    ifNotValid = this.validateUrl();
+  } while (ifNotValid);
 };
 
 //method to open a New window
