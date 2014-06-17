@@ -10,8 +10,9 @@ var PopUpWindow = function () {
 //method to get URL from user
 PopUpWindow.prototype.getUrl = function () {
   "use strict";
-  this.url = prompt("Please Input the URL you want to open", this.url);
-  this.validateAndOpenUrl();
+  do {
+    this.url = prompt("Please Input the URL you want to open", this.url);
+  } while (this.validateUrl());
 };
 
 //method to open a New window
@@ -21,25 +22,23 @@ PopUpWindow.prototype.openNewWindow = function () {
 };
 
 //method to validate input
-PopUpWindow.prototype.validateAndOpenUrl = function () {
+PopUpWindow.prototype.validateUrl = function () {
   "use strict";
-  if (!this.url.trim()) {
+  if (this.url == null || !this.url.trim()) {
     alert("Please enter a new Url. Blank Field will not be accepted");
-    new PopUpWindow();
+    return true;
   } else if (!this.regexUrl.test(this.url.trim())) {
     this.url = this.url.trim();
     alert("This Url: " + this.url + " is invalid. Please enter a new Url");
-    new PopUpWindow();
-  } else {
-    this.assignHttpIfNotPresent();
-    this.openNewWindow();
+    return true;
   }
+  return false;
 };
 
 //method to assignHttp to url if not present
 PopUpWindow.prototype.assignHttpIfNotPresent = function () {
   "use strict";
-  if (!/^https?:\/\//i.test(this.url) && !!this.url) {
+  if (!/^https?:\/\//i.test(this.url)) {
     this.url = 'http://' + this.url;
   }
 };
@@ -48,6 +47,8 @@ PopUpWindow.prototype.assignHttpIfNotPresent = function () {
 PopUpWindow.prototype.init = function () {
   "use strict";
   this.getUrl();
+  this.assignHttpIfNotPresent();
+  this.openNewWindow();
 };
 
 window.onload = function () {
