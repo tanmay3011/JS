@@ -3,29 +3,25 @@
 var PopUpWindow = function () {
   "use strict";
   this.url = "http://www.google.com";
-  this.regexUrl = /^((ht|f)tps?:| )?\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
+  this.regexUrl = /(http[s]?\:\/\/)?([w]{3}.)?((([\w]+)?\.)*)?([a-z.]+\.[a-z.]{2,4})([\/][\w%.-]+)*(\/)?([#][\w9%-]+)?([\?][\w%.]+\=[\w%]+)?(&[\w%.]+\=[\w%.]*)*$/i;
 };
-
 //method to get URL from user
-PopUpWindow.prototype.getUrlName = function () {
+PopUpWindow.prototype.getUrl = function () {
   "use strict";
-  var check;
+  var valid;
   do {
     this.url = prompt("Please Input the URL you want to open", this.url);
     this.url = this.url.trim();
-    check = this.validateUrl();
-  } while (check);
-  this.openNewWindow();
+    valid = this.checkUrlForValidation();
+  } while (valid);
 };
-
 //method to open a New window
 PopUpWindow.prototype.openNewWindow = function () {
   "use strict";
   window.open(this.url, "", "location=0, menubar=0, scrollbars=0, status=0, titlebar=0, toolbar=0, width=400,height=450");
 };
-
 //method to validate input
-PopUpWindow.prototype.validateUrl = function () {
+PopUpWindow.prototype.checkUrlForValidation = function () {
   "use strict";
   if (!this.url) {
     alert("Please enter a new Url. Blank Field will not be accepted");
@@ -40,9 +36,14 @@ PopUpWindow.prototype.validateUrl = function () {
   }
   return false;
 };
-
+//method to bind events
+PopUpWindow.prototype.bindEvents = function () {
+  "use strict";
+  this.getUrl();
+  this.openNewWindow();
+};
 window.onload = function () {
   "use strict";
   var popUpWindow = new PopUpWindow();
-  popUpWindow.getUrlName();
+  popUpWindow.bindEvents();
 };
