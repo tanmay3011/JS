@@ -12,6 +12,9 @@ PopUpWindow.prototype.getUrl = function () {
   "use strict";
   do {
     this.url = prompt("Please Input the URL you want to open", this.url);
+    if (this.url !== null) {
+      this.url = this.url.trim();
+    }
   } while (this.validateUrl());
 };
 
@@ -24,11 +27,10 @@ PopUpWindow.prototype.openNewWindow = function () {
 //method to validate input
 PopUpWindow.prototype.validateUrl = function () {
   "use strict";
-  if (this.url == null || !this.url.trim()) {
+  if (!this.url) {
     alert("Please enter a new Url. Blank Field will not be accepted");
     return true;
-  } else if (!this.regexUrl.test(this.url.trim())) {
-    this.url = this.url.trim();
+  } else if (!this.regexUrl.test(this.url)) {
     alert("This Url: " + this.url + " is invalid. Please enter a new Url");
     return true;
   }
@@ -38,7 +40,7 @@ PopUpWindow.prototype.validateUrl = function () {
 //method to assignHttp to url if not present
 PopUpWindow.prototype.assignHttpIfNotPresent = function () {
   "use strict";
-  if (!/^https?:\/\//i.test(this.url)) {
+  if (!this.url.match(/^https?:\/\//i)) {
     this.url = 'http://' + this.url;
   }
 };
