@@ -13,7 +13,7 @@ var Form = function (numberElement, resultElement, formElement, submitButton) {
 //init to call other methods
 Form.prototype.init = function () {
   "use strict";
-  this.bindEvent();
+  this.bindEvents();
 };
 
 //method number whether number matches with the regex or not
@@ -42,7 +42,7 @@ Form.prototype.displayResult = function () {
 };
 
 //method to bindEvent
-Form.prototype.bindEvent = function () {
+Form.prototype.bindEvents = function () {
   "use strict";
   var that = this;
   this.submitButton.addEventListener('click', function (event) { that.validate(); }, false);
