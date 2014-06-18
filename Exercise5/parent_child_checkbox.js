@@ -19,14 +19,20 @@ CheckEvent.prototype.subCheckBoxesEvent = function (parentBlock) {
   parentBlock.scrollIntoView(displayChoice);
 };
 
+//method to add remove class based on the choice
+CheckEvent.prototype.AddRemoveClass = function (subBlock, className) {
+  subBlock.className = subBlock.className.replace(subBlock.className,""); 
+  subBlock.className = subBlock.className + " " + className;
+}
+
 //method to display subblock depending on checked or unchecked 
 CheckEvent.prototype.subBlockDisplay = function (displayChoice, childListName) {
   "use strict";
   var subBlock = document.getElementById(childListName + "List");
   if (displayChoice) {
-    subBlock.style.display = "block";
+    this.AddRemoveClass(subBlock, "child");
   } else {
-    subBlock.style.display = "none";
+    this.AddRemoveClass(subBlock, "hiddenField");
   }
 };
 

@@ -10,7 +10,10 @@ div{
   overflow: scroll;
 }
 
+.hiddenField {
+  display: none;
+}
 
 .child {
-  display: none;
+  display: block;
 }
