@@ -1,0 +1,80 @@
+/* Timed Arithmetic Quiz*/
+/*jslint browser: true, devel: true */
+var Question = function (maxNumberLimit) {
+  "use strict";
+  this.firstNumber;
+  this.secondNumber;
+  this.operator;
+  this.question;
+  this.answer;
+  this.maxNumberLimit = maxNumberLimit;
+  this.init();
+};
+
+question.prototype = {
+  //method to get a random number
+  getRandomNumber : function (maxLimit) {
+    "use strict";
+    return Math.floor(Math.random() * maxLimit);
+  },
+  //method to generate a random operator
+  getRandomOperator : function () {
+  "use strict";
+    var operators = ["+", "-", "*", "/"];
+    return operators[this.getRandomNumber(operators.length)];
+  },
+  //method to create a question
+  createQuestion : function () {
+  "use strict";
+    this.getRequiredElements();
+    this.question = this.firstNumber + " " + this.operator + " " + this.secondNumber;
+    this.answer = eval ("this.firstNumber this.operator this.secondNumber");
+  },
+  //method to fetch basic variables required for a question
+  getRequiredElements : function () {
+  "use strict";
+  this.firstNumber = this.getNumber(this.maxNumberLimit);
+  this.secondNumber = this.getNumber(this.maxNumberLimit);
+  this.operator = this.getRandomOperator();
+  },
+  //init method to initiate question creation event
+  init : function () {
+    this.createQuestion();
+  }
+};
+
+
+var ArithmeticQuiz = function (maxQuestionCount, maxNumberLimit) {
+  "use strict";
+  this.maxNumberLimit = maxNumberLimit;
+  this.maxQuestionCount = maxQuestionCount;
+  this.start();
+};
+
+arithmeticQuiz.prototype = {
+  //method start to start the quiz
+  start : function () {
+    "use strict";
+    this.createQuestionSet();
+  },
+  //create a question a set of 20 questions
+  createQuestionSet : function () {
+    "use strict";
+    var questionIndex, questionObject;
+    for (questionIndex = 0; questionIndex < maxQuestionCount ; questionIndex++) {
+      questionObject = new Question(this.maxNumberLimit);
+      this.saveQuestion(questionObject);
+    };
+  },
+  //to append the object in a JSON object
+  saveQuestion :
+
+
+};
+
+window.onload = function () {
+  "use strict";
+  var maxQuestionCount = 20,
+      maxNumberLimit = 20,
+      arithmeticQuiz = ArithmeticQuiz(maxQuestionCount, maxNumberLimit);
+};
