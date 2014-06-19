@@ -1,0 +1,15 @@
+a.Hidden {
+  display: none;
+}
+
+a.notHidden {
+  display: block;
+}
+ 
+button.Hidden {
+  display: block;
+}
+
+button.notHidden {
+  display: none;
+}

@@ -1,15 +1,15 @@
 /*dynamic_table*/
 /*jslint browser: true, devel: true */
 var elements = {
-  create : function(choice, type) {
+  create : function(choice, type, value) {
     var node = document.createElement(choice);
     node.setAttribute("class", type);
-    node.innerHTML = type;
-    if (choice === "a") {
+    node.innerHTML = value;
+    if (choice === "a") {  
       node.setAttribute("href", "#");  
     } else if (choice === "input") {
       if (type) {
-        node.setAttribute("value", type);  
+        node.setAttribute("value", value);
       }
     }
     return node;
@@ -17,15 +17,15 @@ var elements = {
 };
 
 //class for row
-var RowEvents = function (rowsIndex) {
+var Row = function (rowsIndex) {
   "use strict";
-  this.regexMail = /\S+@\S+\.\S+/;
+  this.regexMail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   this.regexName = /(\w+)/;
   this.rowsIndex = rowsIndex;
 };
 
 //method initialize row attributes
-RowEvents.prototype.bindRowEvent = function (rowIndex) {
+Row.prototype.bindRowEvent = function (rowIndex) {
   "use strict";
   this.row = document.getElementsByTagName("tr")[this.rowsIndex];
   this.cell = this.row.getElementsByTagName("td");
@@ -33,7 +33,7 @@ RowEvents.prototype.bindRowEvent = function (rowIndex) {
 }
 
 //method to save row
-RowEvents.prototype.saveEvent = function () {
+Row.prototype.saveEvent = function () {
   "use strict";
   var save = this.row.getElementsByTagName("button")[0];
   var that = this;
@@ -43,87 +43,110 @@ RowEvents.prototype.saveEvent = function () {
 };
 
 //method to validate row before saving
-RowEvents.prototype.validateValues = function () {
+Row.prototype.validateValues = function () {
   "use strict";
-  var input = this.row.getElementsByTagName("input");
+  var input = this.row.getElementsByClassName("input");
   var name = input[0].value;
   var nameCheck = this.regexName.test(name);
   var email = input[1].value;
   var emailCheck = this.regexMail.test(email);
-  if (!emailCheck || !name) {
-    if (!emailCheck){
-      alert("Wrong data entered in email field (abc@xyz.com)");
-    } else {
-      alert("Wrong data entered in name field");
-    }
-    this.saveEvent();
+  if (!emailCheck) {
+    alert("Wrong data entered in email field (abc@xyz.com)");
+  } else if (!name.trim()) {
+    alert("Wrong data entered in name field");
   } else {
     this.saveValues();
   }
 };
 
-//method to finally save row and display their values
-RowEvents.prototype.saveValues = function () {
+Row.prototype.assignCellValues = function (inputValues) {
   "use strict";
-  var input = this.row.getElementsByTagName("input");
-  this.cell[0].innerHTML = input[0].value;
-  this.cell[1].innerHTML = input[0].value;
-  this.cell[2].replaceChild(elements.create("a","editRow "), this.cell[2].childNodes[0]);
-  this.cell[2].appendChild(elements.create("a","deleteRow"));
+  var i;
+  for (i = 0; i < 2; i++ ) {
+    if(inputValues != "replaceChild") {
+      this.cell[i].innerHTML = inputValues[0].value;
+    } else {
+      this.cell[i].replaceChild(elements.create("input", "input", this.cell[i].innerHTML), this.cell[i].childNodes[0]);  
+    }  
+  }
+}
+//method to finally save row and display their values
+Row.prototype.saveValues = function () {
+  "use strict";
+  var inputValues = this.row.getElementsByClassName("input"), i;
+  this.assignCellValues(inputValues);
+  var subBlock = this.cell[2].getElementsByClassName("Hidden"),
+  sub_length = subBlock.length;
+  for (i = 0; i < sub_length; i++) {
+    this.addRemoveClass(subBlock[0], "notHidden");
+  }
   this.editDeleteEvent();
 };
 
-//method in case of edit or delete event
-RowEvents.prototype.editDeleteEvent = function () {
+Row.prototype.addRemoveClass = function (subBlock, className) {
   "use strict";
-  var editEvent = this.row.getElementsByTagName("a")[0];
-  var deleteEvent = this.row.getElementsByTagName("a")[1];
-  var that = this;
+  subBlock.className = className;
+};
+
+//method in case of edit or delete event
+Row.prototype.editDeleteEvent = function () {
+  "use strict";
+  var editEvent = this.row.getElementsByTagName("a")[0],
+    deleteEvent = this.row.getElementsByTagName("a")[1],
+    that = this;
   editEvent.onclick = function () { that.editRow(); };
   deleteEvent.onclick = function () { that.row.remove(); };
 };
 
 //method to edit row
-RowEvents.prototype.editRow = function () {
-  "use strict";;
-  var that = this;
-  this.cell[0].replaceChild(elements.create("input", this.cell[0].innerHTML), this.cell[0].childNodes[0]);
-  this.cell[1].replaceChild(elements.create("input", this.cell[1].innerHTML), this.cell[1].childNodes[0]);
-  this.cell[2].childNodes[1].remove();
-  this.cell[2].replaceChild(elements.create("button","save"), this.cell[2].childNodes[0]);
+Row.prototype.editRow = function () {
+  "use strict";
+  var that = this, i;
+  this.assignCellValues("replaceChild");
+  var subBlock = this.cell[2].getElementsByClassName("notHidden"),
+    sub_length = subBlock.length;
+  for (i = 0; i < sub_length; i++) {
+    this.addRemoveClass(subBlock[0], "Hidden");
+  }
   this.saveEvent();
 };
 
 //table class
-var TableEvent = function (tableId) {
+var Table = function (tableId) {
   "use strict";
-  this.table;
-  this.add;
   this.tableId = tableId;
 };
 
 //method to bind table event
-TableEvent.prototype.bindEvent = function () {
+Table.prototype.bindEvent = function () {
   "use strict";
   var that = this;
   this.table = document.getElementById(this.tableId);
-  this.add = document.getElementById("button");
-  this.add.onclick = function () { that.createRow(); };
+  this.addRow = document.getElementById("button");
+  this.addRow.onclick = function () { that.createRow(); };
 };
 
-TableEvent.prototype.createRow = function () {
+Table.prototype.createRow = function () {
   "use strict";
   var row = this.table.insertRow(-1);
   row.setAttribute("class", "tableRow");
-  row.insertCell(0).appendChild(elements.create("input"));
-  row.insertCell(1).appendChild(elements.create("input"));
-  row.insertCell(2).appendChild(elements.create("button","save")); 
-  var newRowEvent = new RowEvents(this.table.rows.length - 1);
-  newRowEvent.bindRowEvent();
+  row.insertCell(0).appendChild(elements.create("input", "input", ""));
+  row.insertCell(1).appendChild(elements.create("input", "input", ""));
+  row.insertCell(2).appendChild(this.createButtonColumn());
+  var newRow = new Row(this.table.rows.length - 1);
+  newRow.bindRowEvent();
+};
+
+Table.prototype.createButtonColumn = function () {
+  var node = document.createElement("div");
+  node.appendChild(elements.create("button", "Hidden", "Save"));
+  node.appendChild(elements.create("a", "Hidden", "Edit"));
+  node.appendChild(elements.create("a", "Hidden", "Delete"));
+  return node;
 };
 
 window.onload = function () {
   "use strict";
-  var tableEvent = new TableEvent("dynamicTable");
-  tableEvent.bindEvent();
+  var table = new Table("dynamicTable");
+  table.bindEvent();
 };
