@@ -3,11 +3,6 @@
 //Question generator class
 var Question = function (maxNumberLimit) {
   "use strict";
-  this.operand1;
-  this.operand2;
-  this.operator;
-  this.question;
-  this.answer;
   this.createQuestion(maxNumberLimit);
 };
 
@@ -36,23 +31,23 @@ Question.prototype = {
   correctAnswer : function () {
     "use strict";
     switch (this.operator) {
-      case "+" : return(parseInt(this.operand1 + this.operand2, 10)); break;
-      case "-" : return(parseInt(this.operand1 - this.operand2, 10)); break;
-      case "/" : return (Math.round((this.operand1 / this.operand2) * 100) / 100); break;
-      case "*" : return(parseInt(this.operand1 * this.operand2, 10)); break;
+      case "+": return(parseInt(this.operand1 + this.operand2, 10)); break;
+      case "-": return(parseInt(this.operand1 - this.operand2, 10)); break;
+      case "/": return (Math.round((this.operand1 / this.operand2) * 100) / 100); break;
+      case "*": return(parseInt(this.operand1 * this.operand2, 10)); break;
     }
   },
   //question to string
   questionToString : function () {
     "use strict";
-    this.question = this.operand1 + " " + this.operator +" "+ this.operand2;
+    this.question = this.operand1 + " " + this.operator + " " + this.operand2;
   }
-
 };
 
 //Quiz class
 var ArithmeticQuiz = function (retrievedElementsJsonObject) {
   "use strict";
+  this.displayFinalResult = retrievedElementsJsonObject.displayFinalResult;
   this.nextButton = retrievedElementsJsonObject.next;
   this.questionElement = retrievedElementsJsonObject.question;
   this.replyElement = retrievedElementsJsonObject.reply;
@@ -75,7 +70,7 @@ ArithmeticQuiz.prototype = {
   startQuiz : function () {
     "use strict";
     var quiz = this;
-    this.nextButton.addEventListener("click", function (event) { 
+    this.nextButton.addEventListener("click", function (event) {
       quiz.displayNext();
     }, false);
   },
@@ -83,14 +78,14 @@ ArithmeticQuiz.prototype = {
   displayNext : function () {
     "use strict";
     if (this.currentIndex > 0) {
-      this.scoringAndResultDisplay();      
+      this.scoringAndResultDisplay();
     }
     if (this.currentIndex === 0) {
       this.replyElement.setAttribute("type", "text");
     }
     if (this.currentIndex < this.maxNumberLimit) {
       this.displayEvents();
-    }  
+    }
     this.currentIndex++;
   },
   //method to call score related methods and Final Display method
@@ -130,7 +125,6 @@ ArithmeticQuiz.prototype = {
     var i = this.timePerQuestion,
       that = this;
     this.timerElement.innerHTML = "Timer: " + i;
-    
     this.timeUp = false;
     this.timerId = window.setInterval(function () {
       if (i > 0) {
@@ -147,24 +141,22 @@ ArithmeticQuiz.prototype = {
   //method to display result
   displayResult : function () {
     "use strict";
-    this.displayFinalResult = document.getElementById("container");
     this.displayFinalResult.innerHTML = "";
     var questionCounter, 
-      wrongAnswerList = "Final Score:" + this.totalScore + "<br>",
-      node = document.createElement("p");
+      wrongAnswerList = "Final Score:" + this.totalScore + "<br>";
     for (questionCounter = 0; questionCounter < this.maxNumberLimit; questionCounter++) {
       if (this.question[questionCounter].timeOut == "TimedOut") {
-        wrongAnswerList += this.generateWrongAnswerList("  TimedOut " , questionCounter, "");
+        wrongAnswerList += this.generateWrongAnswerList("  TimedOut ", questionCounter, "");
       } else if (!this.question[questionCounter].reply || this.question[questionCounter].reply != this.question[questionCounter].answer) {
         wrongAnswerList += this.generateWrongAnswerList("  Reply: ", questionCounter, this.question[questionCounter].reply);
       }
     }
-    this.displayFinalResult.innerHTML = wrongAnswerList ;
+    this.displayFinalResult.innerHTML = wrongAnswerList;
   },
   //populate the wrong answered list
   generateWrongAnswerList : function (message, questionCounter, value) {
     "use strict";
-    return "Question: " + this.question[questionCounter].question + message + " " + value + "  Actual Answer: " +this.question[questionCounter].answer + "<br>";
+    return "Question: " + this.question[questionCounter].question + message + " " + value + "  Actual Answer: " + this.question[questionCounter].answer + "<br>";
   },
   //clearTimer
   clearTimer : function () {
@@ -181,8 +173,8 @@ ArithmeticQuiz.prototype = {
   },
   // to display the question remaining count
   displayQuestionCount : function () {
-    "use strict"
-    this.questionCountElement.innerHTML = "Question Number: " +(this.currentIndex +1) ;
+    "use strict";
+    this.questionCountElement.innerHTML = "Question Number: " + (this.currentIndex + 1);
   },
   //to calculate score
   calculateScore : function () {
@@ -200,7 +192,7 @@ ArithmeticQuiz.prototype = {
     "use strict";
     if (!(this.replyElement.value === null) && !(this.replyElement.value === "") && this.replyElement.value == this.question[this.currentIndex - 1].answer && !this.timeUp) {
       return true;
-    } 
+    }
   },
   //showscore
   showScore : function () {
@@ -220,17 +212,19 @@ window.onload = function () {
   var maxQuestionCount = 20,
     maxNumberLimit = 20,
     timePerQuestion = 5,
+    displayFinalResult = document.getElementById("container"),
     nextButton = document.getElementById('next'),
     questionElement = document.getElementById('question'),
     replyElement = document.getElementById('answer'),
     questionCountElement = document.getElementById('question_count'),
     timerElement = document.getElementById('timer'),
     scoreElement = document.getElementById('score'),
-    retrievedElementsJsonObject = { 
-      "next" : nextButton, 
-      "question" : questionElement,  
+    retrievedElementsJsonObject = {
+      "displayFinalResult" : displayFinalResult,
+      "next" : nextButton,
+      "question" : questionElement,
       "reply" : replyElement,
-      "questionCount" : questionCountElement, 
+      "questionCount" : questionCountElement,
       "timer" : timerElement,
       "score" : scoreElement,
       "maxQuestionCount" : maxQuestionCount,
