@@ -1,0 +1,32 @@
+.*{
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  width: 900px;
+  height: auto;
+  margin: 0px auto;
+  text-align: center;
+  background-color: #DFECE1;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+img {
+  width: 170px;
+  height: 170px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+#select_block {
+  text-align: center;
+}
+
+select {
+  text-align: center;
+  border: 1px solid green;
+  width:10em;
+  background:white;
+}
