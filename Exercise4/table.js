@@ -25,7 +25,7 @@ var Row = function (rowsIndex) {
 };
 
 //method initialize row attributes
-Row.prototype.bindRowEvent = function (rowIndex) {
+Row.prototype.bindRowEvent = function () {
   "use strict";
   this.row = document.getElementsByTagName("tr")[this.rowsIndex];
   this.cell = this.row.getElementsByTagName("td");
