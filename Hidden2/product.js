@@ -1,3 +1,5 @@
+/*JSON product data*/
+/*jslint browser: true, devel: true */
 var products = [ {"name" : "1", "url" : "1.jpg", "color" : "Yellow", "brand" : "BRAND A", "sold_out" : "1"},
   {"name" : "2", "url" : "2.jpg", "color" : "Red", "brand" : "BRAND B", "sold_out" : "0"},
   {"name" : "3", "url" : "3.jpg", "color" : "Green", "brand" : "BRAND D", "sold_out" : "0"},
@@ -28,45 +30,39 @@ var ProductSorter = function (products, sortByElement, storeDisplayScreen) {
 };
 
 ProductSorter.prototype = {
-  
   bindEvents : function () {
     "use strict";
     var that = this;
-    this.sortByElement.addEventListener('change', function () { 
+    this.sortByElement.addEventListener('change', function () {
       that.sortBy();
       that.displayScreen();
-    }, false );
+    }, false);
   },
-
   //method to display products on final display screen
   displayScreen : function () {
     "use strict";
-    var i;
+    var i, productImage;
     this.storeDisplayScreen.innerHTML = "";
     for (i = 0; i < this.products.length; i++) {
-      var productImage = document.createElement("img");
+      productImage = document.createElement("img");
       this.storeDisplayScreen.appendChild(productImage);
       productImage.setAttribute("src", this.products[i].url);
     }
   },
   //method to sort elements
   sortBy : function () {
+    "use strict";
     var that = this;
     return this.products.sort(function (firstElement, secondElement) {
-      var key = that.sortByElement.value;
-      if (key == "name") {
-        return (firstElement[key] - secondElement[key])
-      } else { 
-        return ((firstElement[key] < secondElement[key]) ? -1 : ((firstElement[key] > secondElement[key]) ? 1 : 0));
-      }
+      var key = that.sortByElement.value; 
+      return ((firstElement[key] < secondElement[key]) ? -1 : ((firstElement[key] > secondElement[key]) ? 1 : 0));
     });
-  },
-}
-
+  }
+};
 
 window.onload = function () {
   "use strict";
   var sortByElement = document.getElementById("sortCriteria"),
     storeDisplayScreen = document.getElementById("container"),
-    productSorter = new ProductSorter(products, sortByElement, storeDisplayScreen); 
+    productSorter = new ProductSorter(products, sortByElement, storeDisplayScreen);
 };
