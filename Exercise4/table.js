@@ -8,9 +8,7 @@ var elements = {
     if (choice === "a") {  
       node.setAttribute("href", "#");  
     } else if (choice === "input") {
-      if (type) {
-        node.setAttribute("value", value);
-      }
+      node.setAttribute("value", value);
     }
     return node;
   }
@@ -24,17 +22,11 @@ var Row = function (rowsIndex) {
   this.rowsIndex = rowsIndex;
 };
 
-//method initialize row attributes
-Row.prototype.bindRowEvent = function () {
+//method to save row
+Row.prototype.bindSaveEvent = function () {
   "use strict";
   this.row = document.getElementsByTagName("tr")[this.rowsIndex];
-  this.cell = this.row.getElementsByTagName("td");
-  this.saveEvent();
-}
-
-//method to save row
-Row.prototype.saveEvent = function () {
-  "use strict";
+  this.cells = this.row.getElementsByTagName("td");
   var save = this.row.getElementsByTagName("button")[0];
   var that = this;
   save.onclick = function () { 
@@ -52,7 +44,7 @@ Row.prototype.validateValues = function () {
   var emailCheck = this.regexMail.test(email);
   if (!emailCheck) {
     alert("Wrong data entered in email field (abc@xyz.com)");
-  } else if (!name.trim()) {
+  } else if (!name.trim() && !nameCheck) {
     alert("Wrong data entered in name field");
   } else {
     this.saveValues();
@@ -64,9 +56,9 @@ Row.prototype.assignCellValues = function (inputValues) {
   var i;
   for (i = 0; i < 2; i++ ) {
     if(inputValues != "replaceChild") {
-      this.cell[i].innerHTML = inputValues[0].value;
+      this.cells[i].innerHTML = inputValues[0].value;
     } else {
-      this.cell[i].replaceChild(elements.create("input", "input", this.cell[i].innerHTML), this.cell[i].childNodes[0]);  
+      this.cells[i].replaceChild(elements.create("input", "input", this.cells[i].innerHTML), this.cells[i].childNodes[0]);  
     }  
   }
 }
@@ -75,7 +67,7 @@ Row.prototype.saveValues = function () {
   "use strict";
   var inputValues = this.row.getElementsByClassName("input"), i;
   this.assignCellValues(inputValues);
-  var subBlock = this.cell[2].getElementsByClassName("Hidden"),
+  var subBlock = this.cells[2].getElementsByClassName("Hidden"),
   sub_length = subBlock.length;
   for (i = 0; i < sub_length; i++) {
     this.addRemoveClass(subBlock[0], "notHidden");
@@ -103,12 +95,11 @@ Row.prototype.editRow = function () {
   "use strict";
   var that = this, i;
   this.assignCellValues("replaceChild");
-  var subBlock = this.cell[2].getElementsByClassName("notHidden"),
+  var subBlock = this.cells[2].getElementsByClassName("notHidden"),
     sub_length = subBlock.length;
   for (i = 0; i < sub_length; i++) {
     this.addRemoveClass(subBlock[0], "Hidden");
   }
-  this.saveEvent();
 };
 
 //table class
@@ -134,7 +125,7 @@ Table.prototype.createRow = function () {
   row.insertCell(1).appendChild(elements.create("input", "input", ""));
   row.insertCell(2).appendChild(this.createButtonColumn());
   var newRow = new Row(this.table.rows.length - 1);
-  newRow.bindRowEvent();
+  newRow.bindSaveEvent();
 };
 
 Table.prototype.createButtonColumn = function () {
