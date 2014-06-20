@@ -8,7 +8,7 @@ var products = [ {"name" : "1", "url" : "1.jpg", "color" : "Yellow", "brand" : "
   {"name" : "6", "url" : "6.jpg", "color" : "Green", "brand" : "BRAND C", "sold_out" : "0"},
   {"name" : "7", "url" : "7.jpg", "color" : "Red", "brand" : "BRAND C", "sold_out" : "1"},
   {"name" : "8", "url" : "8.jpg", "color" : "Blue", "brand" : "BRAND D", "sold_out" : "0"},
-  {"name" : "9", "url" : "9.jpg", "color" : "Yellow", "brand" : "BRAND A", "sold_out" : "1"},
+  {"name" : "9", "url" : "9.jpg", "color" : "Yellow", "brand" : "BRAND A", "sold_out" : "0"},
   {"name" : "10", "url" : "10.jpg", "color" : "Yellow", "brand" : "BRAND B", "sold_out" : "1"},
   {"name" : "11", "url" : "11.jpg", "color" : "Green", "brand" : "BRAND D", "sold_out" : "0"},
   {"name" : "12", "url" : "12.jpg", "color" : "Yellow", "brand" : "BRAND D", "sold_out" : "0"},
@@ -53,9 +53,9 @@ ProductSorter.prototype = {
   sortBy : function () {
     "use strict";
     var that = this;
-    return this.products.sort(function (firstElement, secondElement) {
+    return this.products.sort(function (firstArray, secondArray) {
       var key = that.sortByElement.value; 
-      return ((firstElement[key] < secondElement[key]) ? -1 : ((firstElement[key] > secondElement[key]) ? 1 : 0));
+      return ((firstArray[key] < secondArray[key]) ? -1 : ((firstArray[key] > secondArray[key]) ? 1 : 0));
     });
   }
 };
@@ -65,4 +65,4 @@ window.onload = function () {
   var sortByElement = document.getElementById("sortCriteria"),
     storeDisplayScreen = document.getElementById("container"),
     productSorter = new ProductSorter(products, sortByElement, storeDisplayScreen);
-};
+};      
