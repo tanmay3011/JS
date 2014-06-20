@@ -5,8 +5,8 @@ var elements = {
     var node = document.createElement(choice);
     node.setAttribute("class", type);
     node.innerHTML = value;
-    if (choice === "a") {  
-      node.setAttribute("href", "#");  
+    if (choice === "a") {
+      node.setAttribute("href", "#");
     } else if (choice === "input") {
       node.setAttribute("value", value);
     }
@@ -29,7 +29,7 @@ Row.prototype.bindSaveEvent = function () {
   this.cells = this.row.getElementsByTagName("td");
   var save = this.row.getElementsByTagName("button")[0];
   var that = this;
-  save.onclick = function () { 
+  save.onclick = function () {
     that.validateValues();
   };
 };
@@ -37,10 +37,9 @@ Row.prototype.bindSaveEvent = function () {
 //method to validate row before saving
 Row.prototype.validateValues = function () {
   "use strict";
-  var input = this.row.getElementsByClassName("input");
-  var name = input[0].value;
+  var name = this.row.getElementsByClassName("name")[0].value;
   var nameCheck = this.regexName.test(name);
-  var email = input[1].value;
+  var email = this.row.getElementsByClassName("email")[0].value;
   var emailCheck = this.regexMail.test(email);
   if (!emailCheck) {
     alert("Wrong data entered in email field (abc@xyz.com)");
@@ -57,11 +56,19 @@ Row.prototype.assignCellValues = function (inputValues) {
   for (i = 0; i < 2; i++ ) {
     if(inputValues != "replaceChild") {
       this.cells[i].innerHTML = inputValues[0].value;
+    } else if ( i == 0 ) {
+      this.addClass(i, "input name");
     } else {
-      this.cells[i].replaceChild(elements.create("input", "input", this.cells[i].innerHTML), this.cells[i].childNodes[0]);  
-    }  
+      this.addClass(i, "input email");
+    }
   }
 }
+
+Row.prototype.addClass = function (i, className) {
+  "use strict";
+  this.cells[i].replaceChild(elements.create("input", className, this.cells[i].innerHTML), this.cells[i].childNodes[0]);
+}
+
 //method to finally save row and display their values
 Row.prototype.saveValues = function () {
   "use strict";
@@ -70,12 +77,12 @@ Row.prototype.saveValues = function () {
   var subBlock = this.cells[2].getElementsByClassName("Hidden"),
   sub_length = subBlock.length;
   for (i = 0; i < sub_length; i++) {
-    this.addRemoveClass(subBlock[0], "notHidden");
+    this.replaceClass(subBlock[0], "notHidden");
   }
   this.editDeleteEvent();
 };
 
-Row.prototype.addRemoveClass = function (subBlock, className) {
+Row.prototype.replaceClass = function (subBlock, className) {
   "use strict";
   subBlock.className = className;
 };
@@ -98,7 +105,7 @@ Row.prototype.editRow = function () {
   var subBlock = this.cells[2].getElementsByClassName("notHidden"),
     sub_length = subBlock.length;
   for (i = 0; i < sub_length; i++) {
-    this.addRemoveClass(subBlock[0], "Hidden");
+    this.replaceClass(subBlock[0], "Hidden");
   }
 };
 
@@ -121,8 +128,8 @@ Table.prototype.createRow = function () {
   "use strict";
   var row = this.table.insertRow(-1);
   row.setAttribute("class", "tableRow");
-  row.insertCell(0).appendChild(elements.create("input", "input", ""));
-  row.insertCell(1).appendChild(elements.create("input", "input", ""));
+  row.insertCell(0).appendChild(elements.create("input", "input name", ""));
+  row.insertCell(1).appendChild(elements.create("input", "input email", ""));
   row.insertCell(2).appendChild(this.createButtonColumn());
   var newRow = new Row(this.table.rows.length - 1);
   newRow.bindSaveEvent();
