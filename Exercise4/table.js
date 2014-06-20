@@ -7,6 +7,7 @@ var elements = {
     node.innerHTML = value;
     if (choice === "a") {
       node.setAttribute("href", "#");
+      node.setAttribute("name", type);
     } else if (choice === "input") {
       node.setAttribute("value", value);
     }
@@ -72,26 +73,34 @@ Row.prototype.addClass = function (i, className) {
 //method to finally save row and display their values
 Row.prototype.saveValues = function () {
   "use strict";
-  var inputValues = this.row.getElementsByClassName("input"), i;
+  var inputValues = this.row.getElementsByClassName("input");
   this.assignCellValues(inputValues);
-  var subBlock = this.cells[2].getElementsByClassName("Hidden"),
-  sub_length = subBlock.length;
-  for (i = 0; i < sub_length; i++) {
-    this.replaceClass(subBlock[0], "notHidden");
-  }
-  this.editDeleteEvent();
+  this.swapClass("Hidden", "notHidden")
+  this.bindEditAndDeleteEvent();
 };
 
-Row.prototype.replaceClass = function (subBlock, className) {
+Row.prototype.swapClass = function (firstClass, secondClass) {
   "use strict";
-  subBlock.className = className;
+  var i,
+    subBlock = this.cells[2].getElementsByClassName(firstClass),
+    sub_length = subBlock.length;
+  for (i = 0; i < sub_length; i++) {
+    this.replaceClass(subBlock[0], firstClass, secondClass);
+  }
+}
+
+Row.prototype.replaceClass = function (subBlock, firstClass, secondClass) {
+  "use strict";
+  var x = subBlock.className;
+  x = x.replace(firstClass, secondClass);
+  subBlock.className = x;
 };
 
 //method in case of edit or delete event
-Row.prototype.editDeleteEvent = function () {
+Row.prototype.bindEditAndDeleteEvent = function () {
   "use strict";
-  var editEvent = this.row.getElementsByTagName("a")[0],
-    deleteEvent = this.row.getElementsByTagName("a")[1],
+  var editEvent = this.row.getElementsByClassName("Edit")[0],
+    deleteEvent = this.row.getElementsByClassName("Delete")[0],
     that = this;
   editEvent.onclick = function () { that.editRow(); };
   deleteEvent.onclick = function () { that.row.remove(); };
@@ -100,13 +109,8 @@ Row.prototype.editDeleteEvent = function () {
 //method to edit row
 Row.prototype.editRow = function () {
   "use strict";
-  var that = this, i;
   this.assignCellValues("replaceChild");
-  var subBlock = this.cells[2].getElementsByClassName("notHidden"),
-    sub_length = subBlock.length;
-  for (i = 0; i < sub_length; i++) {
-    this.replaceClass(subBlock[0], "Hidden");
-  }
+  this.swapClass("notHidden", "Hidden");
 };
 
 //table class
@@ -138,8 +142,8 @@ Table.prototype.createRow = function () {
 Table.prototype.createButtonColumn = function () {
   var node = document.createElement("div");
   node.appendChild(elements.create("button", "Hidden", "Save"));
-  node.appendChild(elements.create("a", "Hidden", "Edit"));
-  node.appendChild(elements.create("a", "Hidden", "Delete"));
+  node.appendChild(elements.create("a", "Hidden Edit", "Edit"));
+  node.appendChild(elements.create("a", "Hidden Delete", "Delete"));
   return node;
 };
 
