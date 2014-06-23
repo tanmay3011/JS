@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- JS Evaluation Exercise by Tanmay Sinha(tanmay@vinsol.com) -->
+
+<html lang='en'>
+  <head>
+    <title>
+      JS Evaluation Exercise
+    </title>    
+    <link rel="stylesheet" type="text/css" href="todo.css">
+  </head>
+  <body>
+    <div id="container">
+      <div id="left_block">
+        <div id="todo_block" class="hidden">
+          <span>To Do:</span>
+          <input type="text" id="todo">
+          <select id="sortBy" />
+            <option disabled selected> -- select an assignee -- </option>
+          </select><br/>
+          <button type="click" id="save">Save</button>
+        </div>
+        <div id="todo_list_block" class="hidden">
+          <hr>
+          <h3> To Do List </h3>
+          <div id="To Do List"></div>
+        </div>
+      </div>
+      <div id="right_block">
+        <div id="top_right_block">
+          <span id="button" class="button notHidden">
+            <button type="click" id="toDo" class="hidden">Create To Do</button>
+            <button type="click" id="createUser">Create User</button>
+          </span>
+        </div>
+        <hr>
+        <div id="name_block" class="hidden">
+          <span>Name:</span>
+          <input type="text" id="name">
+          <button type="submit" id="add">Add</button>
+        </div>
+        <div id="lower_right_block" class="hidden">
+          <hr>
+          <h3> User List </h3>
+          <div id="userList"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="contact.js"></script>
+  </body>
+</html>

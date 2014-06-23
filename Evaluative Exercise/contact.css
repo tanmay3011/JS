@@ -1,0 +1,34 @@
+.*{
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  width: 1200px;
+  height: auto;
+  margin: 0px auto;
+  text-align: center;
+  background-color: #DFECE1;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding :10px;
+}
+
+#left_block {
+	width: 800px;
+  height: auto;
+  margin: 0px auto;
+  padding: 10px;
+}
+
+#right_block {
+  display : inline-block;
+}
+
+.hidden {
+  display: none
+}
+
+.notHidden {
+  display: block;
+}

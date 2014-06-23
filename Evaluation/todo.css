@@ -1,0 +1,45 @@
+.*{
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  display : inline-block;
+  width: 1200px;
+  height: auto;
+  margin: 0px auto;
+  background-color: #DFECE1;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding :10px;
+  text-align: center;
+}
+
+#left_block {
+  display : inline-block;
+	width: 700px;
+  height: auto;
+  margin: 0px auto;
+  padding: 10px;
+}
+
+#right_block {
+  display : inline-block;
+  width: 400px;
+  
+}
+/*
+.hidden {
+  display: none
+}*/
+
+.notHidden {
+  display: block;
+}
+
+.button {
+  margin-left: 175px ;
+}
+
+#name_block
