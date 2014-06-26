@@ -28,8 +28,8 @@ Row.prototype.bindSaveEvent = function () {
   "use strict";
   this.row = document.getElementsByTagName("tr")[this.rowsIndex];
   this.cells = this.row.getElementsByTagName("td");
-  var save = this.row.getElementsByTagName("button")[0];
-  var that = this;
+  var save = this.row.getElementsByClassName("Save")[0],
+    that = this;
   save.onclick = function () {
     that.validateValues();
   };
@@ -141,7 +141,7 @@ Table.prototype.createRow = function () {
 
 Table.prototype.createButtonColumn = function () {
   var node = document.createElement("div");
-  node.appendChild(elements.create("button", "Hidden", "Save"));
+  node.appendChild(elements.create("button", "Hidden Save", "Save"));
   node.appendChild(elements.create("a", "Hidden Edit", "Edit"));
   node.appendChild(elements.create("a", "Hidden Delete", "Delete"));
   return node;
